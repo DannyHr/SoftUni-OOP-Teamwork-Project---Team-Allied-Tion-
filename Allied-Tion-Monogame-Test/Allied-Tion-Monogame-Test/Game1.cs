@@ -96,6 +96,12 @@ namespace TestMonogame
 
             var redbull = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/redbull"), new Point(1300, 400));
 
+            var largeRock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/large-rock"), new Point(100, 400));
+
+            var rock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/skulls"), new Point(160, 400));
+
+            var stump = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/stump"), new Point(250, 400));
+
             map.Initialize(Content.Load<Texture2D>("MapElementsTextures/map"));
             map.AddMapElement(bush1);
             map.AddMapElement(bush2);
@@ -108,6 +114,9 @@ namespace TestMonogame
             map.AddMapElement(RSharper);
             map.AddMapElement(ram);
             map.AddMapElement(redbull);
+            map.AddMapElement(largeRock);
+            map.AddMapElement(rock);
+            map.AddMapElement(stump);
 
             mapPosition = new Vector2(0, 0);
 
