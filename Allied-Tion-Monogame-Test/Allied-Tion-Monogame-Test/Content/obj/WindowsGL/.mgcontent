@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SourceFileCollection xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Profile>Reach</Profile>
-  <Platform>WindowsGL</Platform>
+  <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/HeroSkin.png</File>
-    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/map.png</File>
-    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/SpriteFont.spritefont</File>
-    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/bush.png</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/SpriteFont.spritefont</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/MapElementsTextures/bush.png</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/MapElementsTextures/map.png</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/MapElementsTextures/double-bush.png</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/MapElementsTextures/tree.png</File>
+    <File>C:/Users/Daniel/Desktop/OOP Teamwork 2/OOP-Team-Project/Allied-Tion-Monogame-Test/Allied-Tion-Monogame-Test/Content/CharacterTextures/wizzard2.png</File>
   </SourceFiles>
 </SourceFileCollection>
