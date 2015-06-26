@@ -5,8 +5,8 @@
         private int maxEnergyBonus = 50;
         private bool isCollected = false;
 
-        public Resharper(Position position)
-            : base(position, 'R')
+        public Resharper(Position position, string image)
+            : base(position, image)
         {
             this.MaxFocusBonus = maxEnergyBonus;
             this.IsCollected = isCollected;

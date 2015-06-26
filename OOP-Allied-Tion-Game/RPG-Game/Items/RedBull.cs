@@ -4,7 +4,7 @@
     {
         private int energyRestore = 40;
 
-        public RedBull(Position position) : base(position, 'U')
+        public RedBull(Position position, string image) : base(position, image)
         {
             this.EnergyRestore = energyRestore;
         }

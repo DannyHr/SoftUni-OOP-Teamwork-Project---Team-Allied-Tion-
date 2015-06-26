@@ -15,7 +15,8 @@
         {
             Sound file = new Sound(musicPath);
             file.Play(true);
-
+            Beer beer = new Beer(new Position(1, 1));
+            beer.
             MapLoader.LoadMap(mapPath);
             List<Item> allItems = MapLoader.ItemsOnMap.ToList();
             List<Character> allCharacters = MapLoader.CharactersOnMap.ToList();

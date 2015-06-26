@@ -5,8 +5,8 @@
         private int maxFocusBonus = 20;
         private bool isCollected = false;
 
-        public MemoryUpgrade(Position position)
-            : base(position, 'M')
+        public MemoryUpgrade(Position position, string image)
+            : base(position, image)
         {
             this.MaxFocusBonus = maxFocusBonus;
             this.IsCollected = isCollected;

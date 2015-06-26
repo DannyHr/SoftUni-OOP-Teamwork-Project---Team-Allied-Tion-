@@ -1,1 +1,2 @@
 D:\Dropbox\SoftUni\1. OOP\Teamwork Project\OOP-Allied-Tion-Game\RPG-Game\bin\Debug\RPG-Game.exe.config
+C:\Users\gad\Dropbox\SoftUni\1. OOP\Teamwork Project\OOP-Allied-Tion-Game\RPG-Game\bin\Debug\RPG-Game.exe.config

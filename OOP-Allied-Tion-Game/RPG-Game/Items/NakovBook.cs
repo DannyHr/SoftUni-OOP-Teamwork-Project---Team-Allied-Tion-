@@ -5,8 +5,8 @@
         private int maxFocusBonus = 50;
         private bool isCollected = false;
 
-        public NakovBook(Position position)
-            : base(position, 'N')
+        public NakovBook(Position position, string image)
+            : base(position, image)
         {
             this.MaxFocusBonus = maxFocusBonus;
             this.IsCollected = isCollected;

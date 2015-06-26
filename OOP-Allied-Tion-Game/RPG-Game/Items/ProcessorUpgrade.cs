@@ -5,8 +5,8 @@
         private int maxEnergyBonus = 20;
         private bool isCollected = false;
 
-        public ProcessorUpgrade(Position position)
-            : base(position, 'P')
+        public ProcessorUpgrade(Position position, string image)
+            : base(position, image)
         {
             this.MaxFocusBonus = maxEnergyBonus;
             this.IsCollected = isCollected;

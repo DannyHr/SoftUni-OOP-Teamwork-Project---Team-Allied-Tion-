@@ -7,12 +7,10 @@
     public abstract class GameObject : IMoveable
     {
         private Position position;
-        private char objectSymbol;
 
-        protected GameObject(Position position, char objectSymbol)
+        protected GameObject(Position position)
         {
             this.Position = position;
-            this.ObjectSymbol = objectSymbol;
         }
 
         public Position Position
@@ -31,25 +29,8 @@
             }
         }
 
-        public char ObjectSymbol
+        public virtual void Move()
         {
-            get
-            {
-                return this.objectSymbol;
-            }
-            set
-            {
-                if (!char.IsUpper(value))
-                {
-                    throw new ArgumentOutOfRangeException("objectSymbol", "Object symbol must be uppercase letter.");
-                }
-                this.objectSymbol = value;
-            }
-        }
-
-        public void Move()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -4,7 +4,7 @@
     {
         private int focusRestore = 40;
 
-        public Beer(Position position) : base(position, 'B')
+        public Beer(Position position, string image) : base(position, image)
         {
             this.FocusRestore = focusRestore;
         }
