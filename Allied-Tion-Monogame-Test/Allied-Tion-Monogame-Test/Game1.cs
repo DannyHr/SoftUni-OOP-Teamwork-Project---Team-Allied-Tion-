@@ -71,7 +71,7 @@ namespace TestMonogame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard2"), 2);
+            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard"), 2);
 
             this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
