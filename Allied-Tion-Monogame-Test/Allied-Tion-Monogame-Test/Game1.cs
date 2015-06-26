@@ -50,6 +50,7 @@
                 (currentScreenHeight - WindowHeight) / 2);
 
             //this.graphics.ToggleFullScreen();
+            //this.Window.IsBorderless = true;
 
             // TODO: Add your initialization logic here
 
@@ -65,18 +66,18 @@
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("HeroSkin"), 5);
+            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard2"), 5);
 
             //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             this.map = new Map();
 
-            var bush1 = new MapElement(Content.Load<Texture2D>("bush"), new Point(100,10));
-            var bush2 = new MapElement(Content.Load<Texture2D>("bush"), new Point(120,30));
-            var bush3 = new MapElement(Content.Load<Texture2D>("bush"), new Point(140,50));
-            var bush4 = new MapElement(Content.Load<Texture2D>("bush"), new Point(1300,50));
+            var bush1 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(100, 10));                     
+            var bush2 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/tree"), new Point(120, 30));                     
+            var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));                   
+            var bush4 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(1300, 50));
 
-            map.Initialize(Content.Load<Texture2D>("map"));
+            map.Initialize(Content.Load<Texture2D>("MapElementsTextures/map"));
             map.AddMapElement(bush1);
             map.AddMapElement(bush2);
             map.AddMapElement(bush3);
@@ -103,7 +104,7 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (player.PositionX < WindowWidth / 2
                     || mapPosition.X + map.Image.Width < WindowWidth)
@@ -119,7 +120,7 @@
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 if (player.PositionX >= WindowWidth / 2
                     || mapPosition.X >= map.Image.Bounds.Left)
@@ -135,7 +136,7 @@
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 if (player.PositionY < WindowHeight / 2
                     || mapPosition.Y + map.Image.Height < WindowHeight)
@@ -151,7 +152,7 @@
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 if (player.PositionY >= WindowHeight / 2
                     || mapPosition.Y >= map.Image.Bounds.Top)
