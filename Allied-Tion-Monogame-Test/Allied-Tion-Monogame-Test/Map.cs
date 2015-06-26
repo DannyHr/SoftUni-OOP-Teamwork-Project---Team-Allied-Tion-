@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Allied_Tion_Monogame_Test
 {
-    class Map
+    public class Map
     {
         public List<MapElement> MapElements { get; private set; }
 

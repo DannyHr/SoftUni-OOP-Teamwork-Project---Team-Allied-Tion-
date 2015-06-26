@@ -1,4 +1,8 @@
-﻿namespace TestMonogame
+﻿using System;
+using System.Linq;
+using System.Text;
+
+namespace TestMonogame
 {
     using Allied_Tion_Monogame_Test;
     using Microsoft.Xna.Framework;
@@ -20,7 +24,8 @@
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //private SpriteFont spriteFont;
+        private SpriteFont spriteFont;
+        private bool intersects = false;
 
         private Map map;
         private Player player;
@@ -66,20 +71,20 @@
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard2"), 5);
+            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard2"), 2);
 
-            //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
+            this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             this.map = new Map();
 
-            var bush1 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(100, 10));                     
-            var bush2 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/tree"), new Point(120, 30));                     
-            var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));                   
+            var bush1 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(100, 10));
+            var bush2 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/tree"), new Point(120, 30));
+            var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));
             var bush4 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(1300, 50));
 
-            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx35"), new Point(600,600));
+            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx35"), new Point(600, 600));
 
-            var cpu = new MapElement(Content.Load<Texture2D>("ItemsTextures/cpu-x35"),new Point(200,300));
+            var cpu = new MapElement(Content.Load<Texture2D>("ItemsTextures/cpu-x35"), new Point(200, 300));
 
             var book = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/book"), new Point(100, 200));
 
@@ -125,6 +130,10 @@
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            intersects = CollisionDetector.CheckForCollision(player, map, mapPosition);
+
+            //TODO: Check if player with new location collides with something. If so, don't move.
+
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (player.PositionX < WindowWidth / 2
@@ -132,7 +141,7 @@
                 {
                     if (player.PositionX < WindowWidth - player.Skin.Width)
                     {
-                        player.PositionX+=player.Speed.X;
+                        player.PositionX += player.Speed.X;
                     }
                 }
                 else
@@ -215,7 +224,7 @@
             map.Draw(spriteBatch, mapPosition); // draw map with all its elements
 
             spriteBatch.Draw(player.Skin, new Vector2(player.PositionX, player.PositionY)); // draw player
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("This is bolded test text"), new Vector2(100, 50), Color.WhiteSmoke);
+            spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + intersects), new Vector2(100, 20), Color.WhiteSmoke);
 
             spriteBatch.End();
 
