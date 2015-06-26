@@ -6,7 +6,7 @@ namespace TestMonogame
 
     public class Player
     {
-        public Player(string name, float positionX, float positionY, Texture2D skin, int speed)
+        public Player(string name, float positionX, float positionY, Texture2D skin, float speed)
         {
             this.Name = name;
             this.Skin = skin;

@@ -25,7 +25,7 @@ namespace TestMonogame
         SpriteBatch spriteBatch;
 
         private SpriteFont spriteFont;
-        private bool intersects = false;
+        //private bool intersects = false;
 
         private Map map;
         private Player player;
@@ -71,7 +71,7 @@ namespace TestMonogame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard"), 2);
+            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard"), 2.1f);
 
             this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
@@ -82,7 +82,7 @@ namespace TestMonogame
             var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));
             var bush4 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(1300, 50));
 
-            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx35"), new Point(600, 600));
+            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx32"), new Point(600, 600));
 
             var cpu = new MapElement(Content.Load<Texture2D>("ItemsTextures/cpu-x35"), new Point(200, 300));
 
@@ -90,17 +90,17 @@ namespace TestMonogame
 
             var hdd = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/hdd"), new Point(1200, 200));
 
-            var RSharper = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/RSharper"), new Point(1200, 800));
+            var RSharper = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/RSharper"), new Point(1000, 500));
 
-            var ram = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/ram"), new Point(1200, 800));
+            var ram = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/ram"), new Point(1200, 790));
 
-            var redbull = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/redbull"), new Point(1300, 400));
+            var redbull = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/redbull"), new Point(1300, 402));
 
-            var largeRock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/large-rock"), new Point(100, 400));
+            var largeRock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/large-rock"), new Point(100, 399));
 
-            var rock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/skulls"), new Point(160, 400));
+            var skulls = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/skulls"), new Point(160, 399));
 
-            var stump = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/stump"), new Point(250, 400));
+            var stump = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/stump"), new Point(300, 500));
 
             map.Initialize(Content.Load<Texture2D>("MapElementsTextures/map"));
             map.AddMapElement(bush1);
@@ -115,7 +115,7 @@ namespace TestMonogame
             map.AddMapElement(ram);
             map.AddMapElement(redbull);
             map.AddMapElement(largeRock);
-            map.AddMapElement(rock);
+            map.AddMapElement(skulls);
             map.AddMapElement(stump);
 
             mapPosition = new Vector2(0, 0);
@@ -139,7 +139,7 @@ namespace TestMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            intersects = CollisionDetector.CheckForCollision(player, map, mapPosition);
+            //intersects = CollisionDetector.CheckForCollision(player, map, mapPosition);
 
             //TODO: Check if player with new location collides with something. If so, don't move.
 
@@ -148,7 +148,8 @@ namespace TestMonogame
                 if (player.PositionX < WindowWidth / 2
                     || mapPosition.X + map.Image.Width < WindowWidth)
                 {
-                    if (player.PositionX < WindowWidth - player.Skin.Width)
+                    if (player.PositionX < WindowWidth - player.Skin.Width
+                      && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX + player.Speed.X), (int)player.PositionY, map, mapPosition))
                     {
                         player.PositionX += player.Speed.X;
                     }
@@ -164,7 +165,8 @@ namespace TestMonogame
                 if (player.PositionX >= WindowWidth / 2
                     || mapPosition.X >= map.Image.Bounds.Left)
                 {
-                    if (player.PositionX > 0)
+                    if (player.PositionX > 0
+                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX - player.Speed.X), (int)player.PositionY, map, mapPosition))
                     {
                         player.PositionX -= player.Speed.X;
                     }
@@ -180,7 +182,8 @@ namespace TestMonogame
                 if (player.PositionY < WindowHeight / 2
                     || mapPosition.Y + map.Image.Height < WindowHeight)
                 {
-                    if (player.PositionY < WindowHeight - player.Skin.Height)
+                    if (player.PositionY < WindowHeight - player.Skin.Height
+                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX), (int)(player.PositionY + player.Speed.Y), map, mapPosition))
                     {
                         player.PositionY += player.Speed.Y;
                     }
@@ -196,7 +199,8 @@ namespace TestMonogame
                 if (player.PositionY >= WindowHeight / 2
                     || mapPosition.Y >= map.Image.Bounds.Top)
                 {
-                    if (player.PositionY > 0)
+                    if (player.PositionY > 0
+                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX), (int)(player.PositionY - player.Speed.Y), map, mapPosition))
                     {
                         player.PositionY -= player.Speed.Y;
                     }
@@ -233,7 +237,7 @@ namespace TestMonogame
             map.Draw(spriteBatch, mapPosition); // draw map with all its elements
 
             spriteBatch.Draw(player.Skin, new Vector2(player.PositionX, player.PositionY)); // draw player
-            spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + intersects), new Vector2(100, 20), Color.WhiteSmoke);
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + intersects), new Vector2(100, 20), Color.WhiteSmoke);
 
             spriteBatch.End();
 
