@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\CharacterTextures\wizzard2.xnb
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\ItemsTextures\beerx35.xnb
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\ItemsTextures\book.xnb
@@ -19,3 +20,21 @@ C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.exe
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.pdb
 C:\Users\Daniel\Desktop\OOP Teamwork\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.csprojResolveAssemblyReference.cache
+=======
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\CharacterTextures\wizzard2.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\MapElementsTextures\bush.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\MapElementsTextures\double-bush.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\MapElementsTextures\map.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\MapElementsTextures\tree.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Content\SpriteFont.xnb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Allied-Tion-Monogame-Test.exe
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\Allied-Tion-Monogame-Test.pdb
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\NVorbis.dll
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.csprojResolveAssemblyReference.cache
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.exe
+C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.pdb
+C:\Users\donstany\Documents\OOP-Team-Project\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.exe
+C:\Users\donstany\Documents\OOP-Team-Project\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.pdb
+>>>>>>> 88bc3345cb6bbc71e553b26b74374eca48d149cf
