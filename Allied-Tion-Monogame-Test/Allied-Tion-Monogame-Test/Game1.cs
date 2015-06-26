@@ -77,11 +77,32 @@
             var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));                   
             var bush4 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(1300, 50));
 
+            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx35"), new Point(600,600));
+
+            var cpu = new MapElement(Content.Load<Texture2D>("ItemsTextures/cpu-x35"),new Point(200,300));
+
+            var book = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/book"), new Point(100, 200));
+
+            var hdd = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/hdd"), new Point(1200, 200));
+
+            var RSharper = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/RSharper"), new Point(1200, 800));
+
+            var ram = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/ram"), new Point(1200, 800));
+
+            var redbull = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/redbull"), new Point(1300, 400));
+
             map.Initialize(Content.Load<Texture2D>("MapElementsTextures/map"));
             map.AddMapElement(bush1);
             map.AddMapElement(bush2);
             map.AddMapElement(bush3);
             map.AddMapElement(bush4);
+            map.AddMapElement(beer);
+            map.AddMapElement(cpu);
+            map.AddMapElement(book);
+            map.AddMapElement(hdd);
+            map.AddMapElement(RSharper);
+            map.AddMapElement(ram);
+            map.AddMapElement(redbull);
 
             mapPosition = new Vector2(0, 0);
 
