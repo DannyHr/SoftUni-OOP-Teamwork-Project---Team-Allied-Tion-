@@ -12,3 +12,5 @@ C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Tes
 C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.exe
 C:\Users\Daniel\Desktop\OOP Teamwork 2\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.pdb
+C:\Users\donstany\Documents\OOP-Team-Project\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.exe
+C:\Users\donstany\Documents\OOP-Team-Project\OOP-Team-Project\Allied-Tion-Monogame-Test\Allied-Tion-Monogame-Test\obj\x86\Debug\Allied-Tion-Monogame-Test.pdb
