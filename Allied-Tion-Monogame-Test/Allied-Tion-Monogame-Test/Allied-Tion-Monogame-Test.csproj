@@ -41,8 +41,12 @@
     <Compile Include="CollisionDetector.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="MainClass.cs" />
-    <Compile Include="Map.cs" />
-    <Compile Include="MapElement.cs" />
+    <Compile Include="MapNamespace\Map.cs" />
+    <Compile Include="MapNamespace\MapCreature.cs" />
+    <Compile Include="MapNamespace\MapElement.cs" />
+    <Compile Include="MapNamespace\MapFactory.cs" />
+    <Compile Include="MapNamespace\MapItem.cs" />
+    <Compile Include="MapNamespace\MapObject.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

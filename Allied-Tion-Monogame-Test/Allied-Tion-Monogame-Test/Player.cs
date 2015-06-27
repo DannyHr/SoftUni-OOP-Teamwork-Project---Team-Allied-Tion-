@@ -6,24 +6,21 @@ namespace TestMonogame
 
     public class Player
     {
-        public Player(string name, float positionX, float positionY, Texture2D skin, float speed)
+        public Player(int positionX, int positionY, Texture2D skin, int speed)
         {
-            this.Name = name;
             this.Skin = skin;
             this.PositionX = positionX;
             this.PositionY = positionY;
-            this.Speed = new Vector2(speed, speed);
+            this.Speed = new Point(speed, speed);
         }
-
-        public string Name { get; set; }
 
         public Texture2D Skin { get; set; }
 
-        public float PositionX { get; set; }
+        public int PositionX { get; set; }
 
-        public float PositionY { get; set; }
+        public int PositionY { get; set; }
 
-        public Vector2 Speed { get; set; }
+        public Point Speed { get; set; }
     }
 }
 

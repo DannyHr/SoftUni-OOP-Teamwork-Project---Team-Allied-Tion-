@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using Allied_Tion_Monogame_Test.MapNamespace;
 
 namespace TestMonogame
 {
@@ -24,7 +25,7 @@ namespace TestMonogame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private SpriteFont spriteFont;
+        //private SpriteFont spriteFont;
         //private bool intersects = false;
 
         private Map map;
@@ -71,53 +72,12 @@ namespace TestMonogame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            player = new Player("ivancho", 0.0f, 0.0f, Content.Load<Texture2D>("CharacterTextures/wizzard"), 2.1f);
+            player = new Player(5, 5, Content.Load<Texture2D>("CharacterTextures/wizzard"), 2);
 
-            this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
+            //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
-            this.map = new Map();
-
-            var bush1 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(100, 10));
-            var bush2 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/tree"), new Point(120, 30));
-            var bush3 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/double-bush"), new Point(200, 50));
-            var bush4 = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/bush"), new Point(1300, 50));
-
-            var beer = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/beerx32"), new Point(600, 600));
-
-            var cpu = new MapElement(Content.Load<Texture2D>("ItemsTextures/cpu-x35"), new Point(200, 300));
-
-            var book = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/book"), new Point(100, 200));
-
-            var hdd = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/hdd"), new Point(1200, 200));
-
-            var RSharper = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/RSharper"), new Point(1000, 500));
-
-            var ram = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/ram"), new Point(1200, 790));
-
-            var redbull = new MapElement(this.Content.Load<Texture2D>("ItemsTextures/redbull"), new Point(1300, 402));
-
-            var largeRock = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/large-rock"), new Point(100, 399));
-
-            var skulls = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/skulls"), new Point(160, 399));
-
-            var stump = new MapElement(this.Content.Load<Texture2D>("MapElementsTextures/stump"), new Point(300, 500));
-
-            map.Initialize(Content.Load<Texture2D>("MapElementsTextures/map"));
-            map.AddMapElement(bush1);
-            map.AddMapElement(bush2);
-            map.AddMapElement(bush3);
-            map.AddMapElement(bush4);
-            map.AddMapElement(beer);
-            map.AddMapElement(cpu);
-            map.AddMapElement(book);
-            map.AddMapElement(hdd);
-            map.AddMapElement(RSharper);
-            map.AddMapElement(ram);
-            map.AddMapElement(redbull);
-            map.AddMapElement(largeRock);
-            map.AddMapElement(skulls);
-            map.AddMapElement(stump);
-
+            this.map = new Map(Content.Load<Texture2D>("MapElementsTextures/map"));
+            MapFactory.LoadMapContentFromTextFile(map, "../../../map-coordinates.txt",this.Content);
             mapPosition = new Vector2(0, 0);
 
             // TODO: use this.Content to load your game content here

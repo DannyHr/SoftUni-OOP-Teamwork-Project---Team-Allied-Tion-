@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Allied_Tion_Monogame_Test.MapNamespace;
+using Microsoft.Xna.Framework;
 using TestMonogame;
 
 namespace Allied_Tion_Monogame_Test
