@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Allied_Tion_Monogame_Test
 {
-    public class MapElement
+    public class MapElement : IObject
     {
         public MapElement(Texture2D image, Point topLeft)
         {
