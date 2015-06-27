@@ -7,12 +7,11 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
 {
     public class Map
     {
-        public Map(Texture2D mapImage)
+        public Map()
         {
             this.MapElements = new List<MapElement>();
             this.MapCreatures = new List<MapCreature>();
             this.MapItems = new List<MapItem>();
-            this.Image = mapImage;
         }
 
         public List<MapElement> MapElements { get; private set; }
@@ -22,6 +21,11 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
         public List<MapItem> MapItems { get; private set; }
 
         public Texture2D Image { get; set; }
+
+        public void LoadMapImage(Texture2D mapImage)
+        {
+            this.Image = mapImage;
+        }
 
         public void AddMapElement(MapElement elementToAdd)
         {

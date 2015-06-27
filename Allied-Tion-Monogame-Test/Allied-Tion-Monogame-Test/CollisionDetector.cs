@@ -25,7 +25,7 @@ namespace Allied_Tion_Monogame_Test
             return false;
         }
 
-        public static bool HasCollisionWithItem(Player player, Map map, Vector2 mapPosition, out int hashcodeOfItemToRemove)
+        public static bool HasCollisionWithItem(Player player, Map map, Vector2 mapPosition, out int hashcodeOfCollidedItem)
         {
             Rectangle sad = new Rectangle(player.PositionX, player.PositionY, player.Skin.Width, player.Skin.Height);
 
@@ -36,12 +36,12 @@ namespace Allied_Tion_Monogame_Test
                         mapItem.Image.Height));
                 if (intersects)
                 {
-                    hashcodeOfItemToRemove = mapItem.GetHashCode();
+                    hashcodeOfCollidedItem = mapItem.GetHashCode();
                     return true;
                 }
             }
 
-            hashcodeOfItemToRemove = 0;
+            hashcodeOfCollidedItem = 0;
             return false;
         }
     }

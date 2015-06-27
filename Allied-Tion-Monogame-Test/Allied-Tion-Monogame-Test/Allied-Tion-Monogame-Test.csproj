@@ -35,11 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CollisionDetector.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="MapNamespace\Map.cs" />
     <Compile Include="MapNamespace\MapCreature.cs" />
@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
+    <Content Include="oop-teamwork-icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
