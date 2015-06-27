@@ -37,6 +37,7 @@ namespace TestMonogame
             //window settings
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
+
             this.Window.Title = windowTitle;
 
             this.Window.Position = new Point((currentScreenWidth - WindowWidth) / 2,
@@ -55,7 +56,7 @@ namespace TestMonogame
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             this.map = new Map();
-            map.LoadMapImage(Content.Load<Texture2D>("MapElementsTextures/map"));
+            MapFactory.LoadMapImage(map, Content.Load<Texture2D>("MapElementsTextures/map"));
             MapFactory.LoadMapObjectsFromTextFile(map, "../../../map-coordinates.txt", this.Content);
 
             mapPosition = new Vector2(0, 0);
@@ -153,7 +154,7 @@ namespace TestMonogame
 
             if (hasCollisionWithItem)
             {
-                map.RemoveMapItemByHashCode(hashcodeOfCollidedItem);
+                MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
             }
             #endregion
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Mime;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,7 +11,8 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
 {
     public static class MapFactory
     {
-        private static List<string> commands = new List<string>()
+        private static readonly List<string> Commands = new List<string>
+        #region FillListWithCommands
         {
             "bug",
             "exception",
@@ -32,6 +34,8 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
             "double-bush",
             "bush"
         };
+        #endregion
+
         private static ContentManager Content;
         private static Map Map;
 
@@ -46,7 +50,7 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
 
                 while (!sr.EndOfStream)
                 {
-                    if (commands.Contains(currentLine))
+                    if (Commands.Contains(currentLine))
                     {
                         command = currentLine;
                         currentLine = sr.ReadLine();
@@ -64,68 +68,78 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
 
         private static void Execute(string command, Point point)
         {
-            
-
+            #region CheckCommandCase
             switch (command)
             {
                 case "bug":
-                    Map.AddMapCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/bug"), point));
+                    Map.AddCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/bug"), point));
                     break;
                 case "exception":
-                    Map.AddMapCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/exception"), point));
+                    Map.AddCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/exception"), point));
                     break;
                 case "exam":
-                    Map.AddMapCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/exam"), point));
+                    Map.AddCreature(new MapCreature(Content.Load<Texture2D>("CharacterTextures/exam"), point));
                     break;
                 case "cpu":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/cpu-x35"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/cpu-x35"), point));
                     break;
                 case "ram":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/ram"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/ram"), point));
                     break;
                 case "hdd":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/hdd"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/hdd"), point));
                     break;
                 case "book":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/book"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/book"), point));
                     break;
                 case "rsharper":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/RSharper"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/RSharper"), point));
                     break;
                 case "beer":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/beerx32"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/beerx32"), point));
                     break;
                 case "redbull":
-                    Map.AddMapItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/redbull"), point));
+                    Map.AddItem(new MapItem(Content.Load<Texture2D>("ItemsTextures/redbull"), point));
                     break;
                 case "big-rock":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/big-rock"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/big-rock"), point));
                     break;
                 case "large-rock":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/large-rock"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/large-rock"), point));
                     break;
                 case "rocks":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/rocks"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/rocks"), point));
                     break;
                 case "skulls":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/skulls"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/skulls"), point));
                     break;
                 case "stump":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/stump"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/stump"), point));
                     break;
                 case "bush2":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/bush2"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/bush2"), point));
                     break;
                 case "tree":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/tree"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/tree"), point));
                     break;
                 case "double-bush":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/double-bush"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/double-bush"), point));
                     break;
                 case "bush":
-                    Map.AddMapElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/bush"), point));
+                    Map.AddElement(new MapElement(Content.Load<Texture2D>("MapElementsTextures/bush"), point));
                     break;
             }
+            #endregion
+        }
+
+        public static void LoadMapImage(Map map, Texture2D mapImage)
+        {
+            map.Image = mapImage;
+        }
+
+        public static void RemoveMapItemByHashCode(Map map, int hashCodeOfItemToRemove)
+        {
+            map.MapItems.Remove(map.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
         }
     }
 }
