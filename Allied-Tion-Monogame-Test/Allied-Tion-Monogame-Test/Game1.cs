@@ -77,7 +77,7 @@ namespace TestMonogame
             //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             this.map = new Map(Content.Load<Texture2D>("MapElementsTextures/map"));
-            MapFactory.LoadMapContentFromTextFile(map, "../../../map-coordinates.txt",this.Content);
+            MapFactory.LoadMapObjectsFromTextFile(map, "../../../map-coordinates.txt",this.Content);
             mapPosition = new Vector2(0, 0);
 
             // TODO: use this.Content to load your game content here
@@ -99,7 +99,7 @@ namespace TestMonogame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            //intersects = CollisionDetector.CheckForCollision(player, map, mapPosition);
+            //intersects = CollisionDetector.HasCollisionWithObject(player, map, mapPosition);
 
             //TODO: Check if player with new location collides with something. If so, don't move.
 
@@ -109,7 +109,7 @@ namespace TestMonogame
                     || mapPosition.X + map.Image.Width < WindowWidth)
                 {
                     if (player.PositionX < WindowWidth - player.Skin.Width
-                      && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX + player.Speed.X), (int)player.PositionY, map, mapPosition))
+                      && !CollisionDetector.HasCollisionWithObject(player, (int)(player.PositionX + player.Speed.X), (int)player.PositionY, map, mapPosition))
                     {
                         player.PositionX += player.Speed.X;
                     }
@@ -126,7 +126,7 @@ namespace TestMonogame
                     || mapPosition.X >= map.Image.Bounds.Left)
                 {
                     if (player.PositionX > 0
-                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX - player.Speed.X), (int)player.PositionY, map, mapPosition))
+                        && !CollisionDetector.HasCollisionWithObject(player, (int)(player.PositionX - player.Speed.X), (int)player.PositionY, map, mapPosition))
                     {
                         player.PositionX -= player.Speed.X;
                     }
@@ -143,7 +143,7 @@ namespace TestMonogame
                     || mapPosition.Y + map.Image.Height < WindowHeight)
                 {
                     if (player.PositionY < WindowHeight - player.Skin.Height
-                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX), (int)(player.PositionY + player.Speed.Y), map, mapPosition))
+                        && !CollisionDetector.HasCollisionWithObject(player, (int)(player.PositionX), (int)(player.PositionY + player.Speed.Y), map, mapPosition))
                     {
                         player.PositionY += player.Speed.Y;
                     }
@@ -160,7 +160,7 @@ namespace TestMonogame
                     || mapPosition.Y >= map.Image.Bounds.Top)
                 {
                     if (player.PositionY > 0
-                        && !CollisionDetector.CheckForCollision(player, (int)(player.PositionX), (int)(player.PositionY - player.Speed.Y), map, mapPosition))
+                        && !CollisionDetector.HasCollisionWithObject(player, (int)(player.PositionX), (int)(player.PositionY - player.Speed.Y), map, mapPosition))
                     {
                         player.PositionY -= player.Speed.Y;
                     }
@@ -175,6 +175,15 @@ namespace TestMonogame
             {
                 Exit();
             }
+
+            int hashcodeOfItemToRemove;
+            bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition, out hashcodeOfItemToRemove);
+
+            if (hasCollisionWithItem)
+            {
+                map.RemoveMapItemByHashCode(hashcodeOfItemToRemove);
+            }
+
 
             // TODO: Add your update logic here
 

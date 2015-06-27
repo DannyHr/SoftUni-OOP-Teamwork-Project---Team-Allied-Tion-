@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -35,6 +36,11 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
         public void AddMapItem(MapItem itemToAdd)
         {
             this.MapItems.Add(itemToAdd);
+        }
+
+        public void RemoveMapItemByHashCode(int hashCodeOfItemToRemove)
+        {
+            MapItems.Remove(this.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 mapPosition)

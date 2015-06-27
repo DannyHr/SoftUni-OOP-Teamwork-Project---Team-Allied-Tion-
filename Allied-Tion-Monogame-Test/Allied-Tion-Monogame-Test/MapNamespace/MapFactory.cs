@@ -35,7 +35,7 @@ namespace Allied_Tion_Monogame_Test.MapNamespace
         private static ContentManager Content;
         private static Map Map;
 
-        public static void LoadMapContentFromTextFile(Map map, string mapTextFilePath, ContentManager content)
+        public static void LoadMapObjectsFromTextFile(Map map, string mapTextFilePath, ContentManager content)
         {
             Map = map;
             Content = content;

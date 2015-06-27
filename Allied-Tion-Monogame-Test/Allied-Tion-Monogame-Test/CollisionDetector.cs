@@ -6,7 +6,7 @@ namespace Allied_Tion_Monogame_Test
 {
     public static class CollisionDetector
     {
-        public static bool CheckForCollision(Player player, int targetPositionX, int targetPositionY, Map map, Vector2 mapPosition)
+        public static bool HasCollisionWithObject(Player player, int targetPositionX, int targetPositionY, Map map, Vector2 mapPosition)
         {
             Rectangle sad = new Rectangle(targetPositionX, targetPositionY, player.Skin.Width,
                 player.Skin.Height);
@@ -22,6 +22,26 @@ namespace Allied_Tion_Monogame_Test
                 }
             }
 
+            return false;
+        }
+
+        public static bool HasCollisionWithItem(Player player, Map map, Vector2 mapPosition, out int hashcodeOfItemToRemove)
+        {
+            Rectangle sad = new Rectangle(player.PositionX, player.PositionY, player.Skin.Width, player.Skin.Height);
+
+            foreach (var mapItem in map.MapItems)
+            {
+                bool intersects =
+                    sad.Intersects(new Rectangle(mapItem.TopLeft.X + (int)mapPosition.X, mapItem.TopLeft.Y + (int)mapPosition.Y, mapItem.Image.Width,
+                        mapItem.Image.Height));
+                if (intersects)
+                {
+                    hashcodeOfItemToRemove = mapItem.GetHashCode();
+                    return true;
+                }
+            }
+
+            hashcodeOfItemToRemove = 0;
             return false;
         }
     }
