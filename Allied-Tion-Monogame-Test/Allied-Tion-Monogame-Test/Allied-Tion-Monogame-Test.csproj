@@ -49,6 +49,7 @@
     <Compile Include="MapNamespace\MapObject.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="NVorbis">

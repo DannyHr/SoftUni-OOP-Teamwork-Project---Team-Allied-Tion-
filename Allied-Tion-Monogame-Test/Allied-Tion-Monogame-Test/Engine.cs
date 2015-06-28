@@ -3,6 +3,7 @@ using Allied_Tion_Monogame_Test.MapNamespace;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace TestMonogame
 {
@@ -11,6 +12,9 @@ namespace TestMonogame
         private const int WindowWidth = 1280;
         private const int WindowHeight = 720;
         private const string windowTitle = "Allied Tion OOP Teamwork Test Application";
+        private const string music = "../../../Content/Sound/valkyries.mp3";
+        private const string gotItem = "../../../Content/Sound/successful2.mp3";
+        private const string mapCoordinates = "../../../Content/map-coordinates.txt";
 
         private readonly int currentScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         private readonly int currentScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -18,13 +22,15 @@ namespace TestMonogame
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        private Sound addItemSound = new Sound(gotItem);
+        private Sound musicTheme = new Sound(music);
+
         //private SpriteFont spriteFont;
         //private bool intersects = false;
 
         private Map map;
         private Player player;
         private Vector2 mapPosition;
-
 
         public Engine()
         {
@@ -48,6 +54,8 @@ namespace TestMonogame
 
             // TODO: Add your initialization logic here
 
+            this.musicTheme.Play(true);
+
             base.Initialize();
         }
 
@@ -57,10 +65,10 @@ namespace TestMonogame
 
             this.map = new Map();
             MapFactory.LoadMapImage(map, Content.Load<Texture2D>("MapElementsTextures/map"));
-            MapFactory.LoadMapObjectsFromTextFile(map, "../../../map-coordinates.txt", this.Content);
+            MapFactory.LoadMapObjectsFromTextFile(map, mapCoordinates, this.Content);
 
             mapPosition = new Vector2(0, 0);
-
+            
             //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             player = new Player(5, 5, Content.Load<Texture2D>("CharacterTextures/wizzard"), 3);
@@ -74,7 +82,8 @@ namespace TestMonogame
         //TODO:Play audio in Update method!!!
         protected override void Update(GameTime gameTime)
         {
-            //TODO: Player stucks with objects in some pixels?
+
+            //TODO: Player gets stuck with objects in some pixels?
             #region ChecksForInputs
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
@@ -149,14 +158,16 @@ namespace TestMonogame
                 Exit();
             }
 
+            #endregion
+
             int hashcodeOfCollidedItem;
             bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition, out hashcodeOfCollidedItem);
 
             if (hasCollisionWithItem)
             {
                 MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
+                this.addItemSound.Play();
             }
-            #endregion
 
             // TODO: Add your update logic here
 

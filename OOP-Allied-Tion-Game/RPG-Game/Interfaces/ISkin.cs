@@ -2,6 +2,6 @@
 {
     public interface ISkin
     {
-        public string Image { get; set; }
+        string Image { get; set; }
     }
 }
