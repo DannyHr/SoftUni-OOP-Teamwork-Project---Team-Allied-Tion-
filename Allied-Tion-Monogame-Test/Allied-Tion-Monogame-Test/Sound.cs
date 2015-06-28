@@ -3,13 +3,14 @@
     using System;
     using System.Runtime.InteropServices;
     using System.Text;
-    using System.Threading.Tasks;
+
     public class Sound
     {
         [DllImport("winmm.dll")]
 
         static extern int mciSendString(string mciCommand, StringBuilder buffer, int bufferSize, IntPtr callback);
-        string fileName;
+
+        private readonly string fileName;
         private string Pcommand;
 
         public void Send(string mciCommand)
@@ -26,8 +27,12 @@
         public void Play(bool loop = false)
         {
             Pcommand = "play " + fileName;
+
             if (loop)
+            {
                 Pcommand += " REPEAT";
+            }
+
             Send(Pcommand);
         }
     }

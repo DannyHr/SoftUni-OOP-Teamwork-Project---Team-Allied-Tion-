@@ -1,9 +1,10 @@
-﻿using Allied_Tion_Monogame_Test;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Allied_Tion_Monogame_Test;
 using Allied_Tion_Monogame_Test.MapNamespace;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace TestMonogame
 {
@@ -11,10 +12,10 @@ namespace TestMonogame
     {
         private const int WindowWidth = 1280;
         private const int WindowHeight = 720;
-        private const string windowTitle = "Allied Tion OOP Teamwork Test Application";
-        private const string music = "../../../Content/Sound/valkyries.mp3";
-        private const string gotItem = "../../../Content/Sound/successful2.mp3";
-        private const string mapCoordinates = "../../../Content/map-coordinates.txt";
+        private const string WindowTitle = "Allied Tion OOP Teamwork Test Application";
+        private const string Music = "../../../Content/Sound/valkyries.mp3";
+        private const string GotItem = "../../../Content/Sound/successful2.mp3";
+        private const string MapCoordinates = "../../../Content/map-coordinates.txt";
 
         private readonly int currentScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         private readonly int currentScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
@@ -22,8 +23,8 @@ namespace TestMonogame
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        private Sound addItemSound = new Sound(gotItem);
-        private Sound musicTheme = new Sound(music);
+        private Sound getItemSound;
+        private Sound musicTheme;
 
         //private SpriteFont spriteFont;
         //private bool intersects = false;
@@ -44,7 +45,7 @@ namespace TestMonogame
             this.graphics.PreferredBackBufferWidth = WindowWidth;
             this.graphics.PreferredBackBufferHeight = WindowHeight;
 
-            this.Window.Title = windowTitle;
+            this.Window.Title = WindowTitle;
 
             this.Window.Position = new Point((currentScreenWidth - WindowWidth) / 2,
                 (currentScreenHeight - WindowHeight) / 2);
@@ -53,6 +54,9 @@ namespace TestMonogame
             //this.Window.IsBorderless = true;
 
             // TODO: Add your initialization logic here
+
+            this.getItemSound = new Sound(GotItem);
+            this.musicTheme = new Sound(Music);
 
             this.musicTheme.Play(true);
 
@@ -65,7 +69,7 @@ namespace TestMonogame
 
             this.map = new Map();
             MapFactory.LoadMapImage(map, Content.Load<Texture2D>("MapElementsTextures/map"));
-            MapFactory.LoadMapObjectsFromTextFile(map, mapCoordinates, this.Content);
+            MapFactory.LoadMapObjectsFromTextFile(map, MapCoordinates, this.Content);
 
             mapPosition = new Vector2(0, 0);
             
@@ -166,7 +170,7 @@ namespace TestMonogame
             if (hasCollisionWithItem)
             {
                 MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
-                this.addItemSound.Play();
+                new Thread(() => getItemSound.Play()).Start();
             }
 
             // TODO: Add your update logic here
