@@ -38,8 +38,35 @@
     <ApplicationIcon>oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Characters\Bug.cs" />
+    <Compile Include="Characters\Character.cs" />
+    <Compile Include="Characters\ExamBoss.cs" />
+    <Compile Include="Characters\Exception.cs" />
+    <Compile Include="Characters\PlayerTypes\Nerd.cs" />
+    <Compile Include="Characters\PlayerTypes\NormalStudent.cs" />
+    <Compile Include="Characters\PlayerTypes\PartyAnimal.cs" />
     <Compile Include="CollisionDetector.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Interfaces\IAttack.cs" />
+    <Compile Include="Interfaces\ICharacter.cs" />
+    <Compile Include="Interfaces\ICollect.cs" />
+    <Compile Include="Interfaces\IDestroyable.cs" />
+    <Compile Include="Interfaces\IExperienceGainable.cs" />
+    <Compile Include="Interfaces\IHeal.cs" />
+    <Compile Include="Interfaces\IInputReader.cs" />
+    <Compile Include="Interfaces\IMoveable.cs" />
+    <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Interfaces\IRenderer.cs" />
+    <Compile Include="Interfaces\ISkin.cs" />
+    <Compile Include="Items\Beer.cs" />
+    <Compile Include="Items\DiskUpgrade.cs" />
+    <Compile Include="Items\Item.cs" />
+    <Compile Include="Items\ItemState.cs" />
+    <Compile Include="Items\MemoryUpgrade.cs" />
+    <Compile Include="Items\NakovBook.cs" />
+    <Compile Include="Items\ProcessorUpgrade.cs" />
+    <Compile Include="Items\RedBull.cs" />
+    <Compile Include="Items\Resharper.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="MapNamespace\Map.cs" />
     <Compile Include="MapNamespace\MapCreature.cs" />
@@ -69,6 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Engine\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="GUI\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">
