@@ -4,10 +4,10 @@ namespace RPG.Characters
     {
         internal const int BugFocus = 30;
         private const int BugEnergy = 30;
-        private const char BugSym = 'B';
+        private const string Bygimage = ""; //the image of the bug
 
         public Bug(Position position, string name)
-            : base(position, BugSym,name, BugFocus, BugEnergy)
+            : base(position, Bygimage,name, BugFocus, BugEnergy)
         {
         }
     }

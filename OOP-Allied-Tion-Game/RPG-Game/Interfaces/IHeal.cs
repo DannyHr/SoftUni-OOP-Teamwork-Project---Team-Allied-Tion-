@@ -2,6 +2,6 @@
 {
     public interface IHeal
     {
-        void Heal();
+        void Heal(Items.Beer beer);
     }
 }

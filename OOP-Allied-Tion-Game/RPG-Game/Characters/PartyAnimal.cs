@@ -4,10 +4,15 @@ namespace RPG.Characters
 {
     public class PartyAnimal : Character
     {
-        public PartyAnimal(Position position, char symbol, string name, int focus, int energy) : base(position, symbol, name, focus, energy)
+        private const int focus = 60;
+        private const int energy = 140;
+        public PartyAnimal(Position position, string image, string name, int focus, int energy)
+            : base(position, image, name, focus, energy)
         {
-            //TODO: Decide if we need to implement something here
-            throw new NotImplementedException();
+            this.Focus = focus;
+            this.Focus = focus;
         }
+        public int Focus { get; set; }
+        public int Energy { get; set; }
     }
 }

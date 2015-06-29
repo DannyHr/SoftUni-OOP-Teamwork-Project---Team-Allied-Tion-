@@ -1,6 +1,6 @@
 ﻿namespace RPG.Interfaces
 {
-    public interface ICharacter : IAttack, IDestroyable
+    public interface ICharacter : IAttack, IDestroyable, IHeal, ICollect, IExperienceGainable
     {
         Position Position { get; }
 
