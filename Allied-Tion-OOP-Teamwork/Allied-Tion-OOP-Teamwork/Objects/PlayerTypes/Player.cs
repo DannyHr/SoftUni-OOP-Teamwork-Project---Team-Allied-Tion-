@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Allied_Tion_Monogame_Test.Interfaces;
+using Allied_Tion_Monogame_Test.Objects.Creatures;
 using Allied_Tion_Monogame_Test.Objects.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
 {
-    public abstract class Player : Object, IAttack, ICollect, IDestroyable, IExperienceEarnable, IHeal, IMoveable, ISpeed
+    public abstract class Player : Creature, ICollect, IExperienceEarnable, IHeal, ISpeed
     {
         private const int PlayerTopLeftX = 5;
         private const int PlayerTopLeftY = 5;
@@ -15,9 +16,10 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         private List<Item> inventory;
 
         protected Player(Texture2D image, int energy, int focus, int speed)
-            : base(image, PlayerTopLeftX, PlayerTopLeftY)
+            : base(image, PlayerTopLeftX, PlayerTopLeftY, energy, focus, 0)
         {
-            this.Energy = energy;
+            this.CurrentEnergy = energy;
+            this.TotalEnergy = energy;
             this.TotalFocus = focus;
             this.CurrentFocus = focus;
             this.Experience = 0;
@@ -26,14 +28,7 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
             this.Speed = new Point(speed, speed);
         }
 
-
         public Point Speed { get; set; }
-
-        public int Energy { get; private set; } // Damage
-
-        public int TotalFocus { get; set; } // Total Health
-
-        public int CurrentFocus { get; set; } // Current Health
 
         public IEnumerable<Item> Inventory
         {
@@ -44,13 +39,6 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
 
         public int CurrentLevel { get; set; }
 
-        public void Attack(IDestroyable enemy)
-        {
-            enemy.CurrentFocus -= this.Energy;
-            //TODO: Check if enemy is dead
-            throw new NotImplementedException();
-        }
-
         public void AddItemToInventory(Item itemToAdd)
         {
             this.inventory.Add(itemToAdd);
@@ -59,18 +47,29 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         public void LevelUp()
         {
             this.CurrentLevel++;
+            this.TotalFocus += 10;
+            this.TotalEnergy += 10;
         }
 
         public void Heal(Beer beer)
         {
-            //TODO
-            throw new NotImplementedException();
+            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + beer.FocusRestore);
+            this.inventory.Remove(beer);
         }
 
-        public void Move(int assignToPositionX, int assignToPositionY)
+        public void Attack(Creature enemy)
         {
-            base.TopLeftX += assignToPositionX;
-            base.TopLeftY += assignToPositionY;
+            int startFocus = this.CurrentFocus;
+            int startEnergy = this.CurrentEnergy;
+            this.CurrentEnergy -= enemy.CurrentFocus;
+            this.CurrentEnergy -= enemy.CurrentEnergy;
+            enemy.CurrentFocus -= startFocus;
+            enemy.CurrentEnergy -= startEnergy;
+            if (enemy.CurrentFocus <= 0 || enemy.CurrentEnergy <= 0)
+            {
+                this.IsAlive = false;
+            }
+            this.Experience += enemy.ExperienceToGive;
         }
 
         //private List<Items.Item> inventory;
@@ -83,7 +82,7 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         //    this.Inventory = inventory;
         //    this.Name = name;
         //    this.Focus = focus;
-        //    this.Energy = energy;
+        //    this.energy = energy;
         //}
 
         //public IEnumerable<Items.Item> Inventory
@@ -98,7 +97,7 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         //    get { return this.focus; }
         //    internal set;
         //}
-        //public int Energy
+        //public int energy
         //{
         //    get { return this.energy; }
         //    internal set;
@@ -119,8 +118,8 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
 
         //void Attack(Character enemy,Character student, Destroyable destroy)
         //{
-        //    enemy.Focus -= this.Energy;
-        //    student.Focus -= enemy.Energy;
+        //    enemy.Focus -= this.energy;
+        //    student.Focus -= enemy.energy;
         //    destroy = new Destroyable(Destroy); // Check explicitly if the health is <= 0...
         //    Destroy(Focus);
         //}
@@ -145,5 +144,8 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         //}
 
         ////Some levelUp method??
+
+
+        
     }
 }

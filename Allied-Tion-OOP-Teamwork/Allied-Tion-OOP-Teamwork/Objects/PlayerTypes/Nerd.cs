@@ -20,6 +20,6 @@
         //    this.Focus = focus;
         //}
         //public int Focus { get; set; }
-        //public int Energy { get; set; }
+        //public int energy { get; set; }
     }
 }

@@ -4,9 +4,9 @@
   <Platform>WindowsGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/donstany/documents/visual studio 2013/Projects/SimpleMenu/SimpleMenu/Content/content_game/AboutBtn.png</File>
-    <File>C:/Users/donstany/documents/visual studio 2013/Projects/SimpleMenu/SimpleMenu/Content/content_game/EnterNameBtn.png</File>
-    <File>C:/Users/donstany/documents/visual studio 2013/Projects/SimpleMenu/SimpleMenu/Content/content_game/grunge-texture5.jpg</File>
-    <File>C:/Users/donstany/documents/visual studio 2013/Projects/SimpleMenu/SimpleMenu/Content/content_game/PlayBtn.png</File>
+    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/SimpleMenu/SimpleMenu/Content/content_game/AboutBtn.png</File>
+    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/SimpleMenu/SimpleMenu/Content/content_game/EnterNameBtn.png</File>
+    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/SimpleMenu/SimpleMenu/Content/content_game/grunge-texture5.jpg</File>
+    <File>C:/Users/gad/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/SimpleMenu/SimpleMenu/Content/content_game/PlayBtn.png</File>
   </SourceFiles>
 </SourceFileCollection>

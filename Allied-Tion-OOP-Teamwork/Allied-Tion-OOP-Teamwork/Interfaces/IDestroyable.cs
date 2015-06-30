@@ -5,5 +5,9 @@
         int TotalFocus { get; set; }
 
         int CurrentFocus { get; set; }
+
+        int TotalEnergy { get; set; }
+
+        int CurrentEnergy { get; set; }
     }
 }

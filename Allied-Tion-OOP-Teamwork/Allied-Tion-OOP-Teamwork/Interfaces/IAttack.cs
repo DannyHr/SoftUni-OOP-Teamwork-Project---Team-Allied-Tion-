@@ -4,6 +4,6 @@
     {
         void Attack(IDestroyable enemy);
 
-        int Energy { get; }
+        int CurrentEnergy { get; }
     }
 }

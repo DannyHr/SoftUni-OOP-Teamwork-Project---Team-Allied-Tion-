@@ -12,8 +12,8 @@ namespace SimpleMenu
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        MainMenu main =new MainMenu();
-    
+        MainMenu main = new MainMenu();
+
         public Game1()
             : base()
         {
@@ -30,8 +30,8 @@ namespace SimpleMenu
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            graphics.PreferredBackBufferWidth = 800;
-            graphics.PreferredBackBufferHeight = 600;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
 
             this.IsMouseVisible = true;
 
@@ -49,7 +49,7 @@ namespace SimpleMenu
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            main.LoadContent(Content);
+            this.main.LoadContent(Content);
 
 
         }
