@@ -12,6 +12,7 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
     {
         private const int PlayerTopLeftX = 5;
         private const int PlayerTopLeftY = 5;
+        private int levelUpExperience = 150; 
 
         private List<Item> inventory;
 
@@ -46,23 +47,52 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
 
         public void LevelUp()
         {
-            this.CurrentLevel++;
-            this.TotalFocus += 10;
-            this.TotalEnergy += 10;
+            if (this.Experience >= this.levelUpExperience)
+            {
+                this.CurrentLevel++;
+                this.levelUpExperience += 150;
+                this.TotalFocus += 10;
+                this.TotalEnergy += 10;
+            }
         }
 
-        public void Heal(Beer beer)
+        public void GetFocus(Beer beer)
         {
             this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + beer.FocusRestore);
             this.inventory.Remove(beer);
         }
 
+        public void DiskUpgrade(DiskUpgrade disk)
+        {
+            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + disk.FocusIncrease);
+            this.inventory.Remove(disk);
+        }
+
+        public void MemoryUpgrade(MemoryUpgrade memory)
+        {
+            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + memory.FocusIncrease);
+            this.inventory.Remove(memory);
+        }
+
+        public void NakovBook(NakovBook book)
+        {
+            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + book.FocusIncrease);
+            this.inventory.Remove(book);
+        }
+
+        public void GetEnergy(RedBull redbull)
+        {
+            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + redbull.EnergyRestore);
+            this.inventory.Remove(redbull);
+        }
+
         public void Attack(Creature enemy)
         {
+
             int startFocus = this.CurrentFocus;
             int startEnergy = this.CurrentEnergy;
-            this.CurrentEnergy -= enemy.CurrentFocus;
             this.CurrentEnergy -= enemy.CurrentEnergy;
+            this.CurrentFocus -= enemy.CurrentFocus;
             enemy.CurrentFocus -= startFocus;
             enemy.CurrentEnergy -= startEnergy;
             if (enemy.CurrentFocus <= 0 || enemy.CurrentEnergy <= 0)
