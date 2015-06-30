@@ -7,7 +7,6 @@ namespace Allied_Tion_Monogame_Test.Sounds
     public class Sound
     {
         [DllImport("winmm.dll")]
-
         static extern int mciSendString(string mciCommand, StringBuilder buffer, int bufferSize, IntPtr callback);
 
         private readonly string fileName;

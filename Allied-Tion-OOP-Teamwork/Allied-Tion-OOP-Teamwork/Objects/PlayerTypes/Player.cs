@@ -13,7 +13,7 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         private const int PlayerTopLeftX = 5;
         private const int PlayerTopLeftY = 5;
 
-        private List<Item> inventory;
+        private readonly List<Item> inventory;
 
         protected Player(Texture2D image, int energy, int focus, int speed)
             : base(image, PlayerTopLeftX, PlayerTopLeftY, energy, focus, 0)

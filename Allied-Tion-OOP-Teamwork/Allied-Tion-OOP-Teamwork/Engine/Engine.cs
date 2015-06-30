@@ -10,13 +10,6 @@ namespace Allied_Tion_Monogame_Test.Engine
 {
     public class Engine : Game
     {
-        private const int WindowWidth = 1280;
-        private const int WindowHeight = 720;
-        private const string WindowTitle = "Allied Tion OOP Teamwork Test Application";
-        private const string Music = "../../../Content/Sound/valkyries.mp3";
-        private const string GotItem = "../../../Content/Sound/successful2.mp3";
-        private const string MapCoordinates = "../../../Content/map-coordinates.txt";
-
         protected static Texture2D BugImage;
         protected static Texture2D ExceptionImage;
         protected static Texture2D ExamBossImage;
@@ -32,9 +25,6 @@ namespace Allied_Tion_Monogame_Test.Engine
         protected static Texture2D ResharperImage;
         protected static Texture2D BeerImage;
         protected static Texture2D RedBullImage;
-
-        private readonly int currentScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-        private readonly int currentScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
@@ -58,13 +48,13 @@ namespace Allied_Tion_Monogame_Test.Engine
         protected override void Initialize()
         {
             //window settings
-            this.graphics.PreferredBackBufferWidth = WindowWidth;
-            this.graphics.PreferredBackBufferHeight = WindowHeight;
+            this.graphics.PreferredBackBufferWidth = MainClass.WindowWidth;
+            this.graphics.PreferredBackBufferHeight = MainClass.WindowHeight;
 
-            this.Window.Title = WindowTitle;
+            this.Window.Title = MainClass.WindowTitle;
 
-            this.Window.Position = new Point((currentScreenWidth - WindowWidth) / 2,
-                (currentScreenHeight - WindowHeight) / 2);
+            this.Window.Position = new Point((MainClass.CurrentScreenWidth - MainClass.WindowWidth) / 2,
+                (MainClass.CurrentScreenHeight - MainClass.WindowHeight) / 2);
 
             //this.graphics.ToggleFullScreen();
             //this.Window.IsBorderless = true;
@@ -73,8 +63,8 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             // TODO: Add your initialization logic here
 
-            this.getItemSound = new Sound(GotItem);
-            this.musicTheme = new Sound(Music);
+            this.getItemSound = new Sound(MainClass.GotItem);
+            this.musicTheme = new Sound(MainClass.Music);
 
             this.map = new Map();
 
@@ -88,7 +78,7 @@ namespace Allied_Tion_Monogame_Test.Engine
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             MapFactory.LoadMapImage(map, Content.Load<Texture2D>("MapElementsTextures/map"));
-            MapFactory.LoadMapObjectsFromTextFile(map, MapCoordinates, this.Content);
+            MapFactory.LoadMapObjectsFromTextFile(map, MainClass.MapCoordinates, this.Content);
 
             mapPosition = new Vector2(0, 0);
 
@@ -109,10 +99,10 @@ namespace Allied_Tion_Monogame_Test.Engine
             #region ChecksForInputs
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                if (player.TopLeftX < WindowWidth / 2
-                    || mapPosition.X + map.Image.Width < WindowWidth)
+                if (player.TopLeftX < MainClass.WindowWidth / 2
+                    || mapPosition.X + map.Image.Width < MainClass.WindowWidth)
                 {
-                    if (player.TopLeftX < WindowWidth - player.Image.Width
+                    if (player.TopLeftX < MainClass.WindowWidth - player.Image.Width
                       && !CollisionDetector.HasCollisionWithObject(player, (player.TopLeftX + player.Speed.X), player.TopLeftY, map, mapPosition))
                     {
                         player.TopLeftX += player.Speed.X;
@@ -126,7 +116,7 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                if (player.TopLeftX >= WindowWidth / 2
+                if (player.TopLeftX >= MainClass.WindowWidth / 2
                     || mapPosition.X >= map.Image.Bounds.Left)
                 {
                     if (player.TopLeftX > 0
@@ -143,10 +133,10 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (player.TopLeftY < WindowHeight / 2
-                    || mapPosition.Y + map.Image.Height < WindowHeight)
+                if (player.TopLeftY < MainClass.WindowHeight / 2
+                    || mapPosition.Y + map.Image.Height < MainClass.WindowHeight)
                 {
-                    if (player.TopLeftY < WindowHeight - player.Image.Height
+                    if (player.TopLeftY < MainClass.WindowHeight - player.Image.Height
                         && !CollisionDetector.HasCollisionWithObject(player, (player.TopLeftX), (player.TopLeftY + player.Speed.Y), map, mapPosition))
                     {
                         player.TopLeftY += player.Speed.Y;
@@ -160,7 +150,7 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
-                if (player.TopLeftY >= WindowHeight / 2
+                if (player.TopLeftY >= MainClass.WindowHeight / 2
                     || mapPosition.Y >= map.Image.Bounds.Top)
                 {
                     if (player.TopLeftY > 0
