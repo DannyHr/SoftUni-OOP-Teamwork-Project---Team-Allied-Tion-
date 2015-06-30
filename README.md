@@ -4,3 +4,5 @@
 - Integrate the main menu in project.
 - Make a player type selection page.
 - Attack and Heal methods of players and creatures.
+
+Add to the list, if you remember something else
