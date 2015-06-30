@@ -174,8 +174,5 @@ namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
         //}
 
         ////Some levelUp method??
-
-
-        
     }
 }
