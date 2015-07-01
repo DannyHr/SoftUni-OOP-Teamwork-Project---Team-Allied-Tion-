@@ -216,7 +216,7 @@ namespace AlliedTionOOP.Engine
                 new Thread(() => killEnemy.Play()).Start();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
                 if (beerToUse != null)
@@ -225,7 +225,52 @@ namespace AlliedTionOOP.Engine
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            if (Keyboard.GetState().IsKeyDown(Keys.V))
+            {
+                DiskUpgrade diskToUse = player.Inventory.FirstOrDefault(f => f is DiskUpgrade) as DiskUpgrade;
+                if (diskToUse != null)
+                {
+                    player.DiskUpgrade(diskToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                ProcessorUpgrade processorToUse = player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
+                if (processorToUse != null)
+                {
+                    player.ProcessorUpgrade(processorToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                Resharper resharperToUse = player.Inventory.FirstOrDefault(r => r is Resharper) as Resharper;
+                if (resharperToUse != null)
+                {
+                    player.Resharper(resharperToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            {
+                MemoryUpgrade memoryToUse = player.Inventory.FirstOrDefault(m => m is MemoryUpgrade) as MemoryUpgrade;
+                if (memoryToUse != null)
+                {
+                    player.MemoryUpgrade(memoryToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.N))
+            {
+                NakovBook bookToUse = player.Inventory.FirstOrDefault(n => n is NakovBook) as NakovBook;
+                if (bookToUse != null)
+                {
+                    player.NakovBook(bookToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
             {
                 RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
                 if (redbullToUse != null)
@@ -249,15 +294,12 @@ namespace AlliedTionOOP.Engine
             foreach (var mapCreature in map.MapCreatures)
             {
                 StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
-                StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, Content, mapPosition);
             }
 
             spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
 
             StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
-            StatBar.DrawFocusBar(player, 13, spriteBatch, Content, Vector2.Zero);
-            StatBar.DrawExperienceBar(player, 16, spriteBatch, Content, Vector2.Zero);
-
+            StatBar.DrawFocusBar(player, 16, spriteBatch, Content, Vector2.Zero);
 
             InventoryBar.DrawInventory(player, spriteBatch, Content);
 

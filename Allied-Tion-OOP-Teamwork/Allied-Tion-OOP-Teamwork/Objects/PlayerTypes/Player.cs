@@ -37,11 +37,6 @@ namespace AlliedTionOOP.Objects.PlayerTypes
             get { return this.inventory; }
         }
 
-        public int LevelUpExperience
-        {
-            get { return this.levelUpExperience; }
-        }
-
         public int Experience { get; set; }
 
         public int CurrentLevel { get; set; }
@@ -90,6 +85,18 @@ namespace AlliedTionOOP.Objects.PlayerTypes
         {
             this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + redbull.EnergyRestore);
             this.inventory.Remove(redbull);
+        }
+
+        public void Resharper(Resharper resharper)
+        {
+            this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + resharper.EnergyIncrease);
+            this.inventory.Remove(resharper);
+        }
+
+        public void ProcessorUpgrade(ProcessorUpgrade processor)
+        {
+            this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + processor.EnergyIncrease);
+            this.inventory.Remove(processor);
         }
 
         public void Attack(Creature enemy)
