@@ -100,6 +100,7 @@ namespace AlliedTionOOP.Objects.PlayerTypes
                 this.IsAlive = false;
             }
             this.Experience += enemy.ExperienceToGive;
+            LevelUp();
         }
 
         //private List<Items.Item> inventory;

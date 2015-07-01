@@ -10,6 +10,7 @@ namespace AlliedTionOOP
         public const string Music = "../../../Content/Sound/valkyries.mp3";
         public const string GotItem = "../../../Content/Sound/successful2.mp3";
         public const string MapCoordinates = "../../../Content/map-coordinates.txt";
+        public const string KillEnemy = "../../../Content/Sound/secret.mp3";
 
         public static readonly int CurrentScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         public static readonly int CurrentScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;

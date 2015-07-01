@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading;
 using AlliedTionOOP.GUI;
 using AlliedTionOOP.MapNamespace;
+using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
 using AlliedTionOOP.Objects.PlayerTypes;
 using AlliedTionOOP.Sounds;
@@ -35,6 +36,7 @@ namespace AlliedTionOOP.Engine
 
         private Sound getItemSound;
         private Sound musicTheme;
+        private Sound killEnemy;
 
         //private SpriteFont spriteFont;
 
@@ -68,6 +70,7 @@ namespace AlliedTionOOP.Engine
 
             this.getItemSound = new Sound(MainClass.GotItem);
             this.musicTheme = new Sound(MainClass.Music);
+            this.killEnemy = new Sound(MainClass.KillEnemy);
 
             this.map = new Map();
 
@@ -198,6 +201,19 @@ namespace AlliedTionOOP.Engine
                 MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
 
                 new Thread(() => getItemSound.Play()).Start();
+            }
+
+            int hashcodeOfCollidedEnemy;
+            bool hasCollisionWithEnemy = CollisionDetector.HasCollisionWithEnemy(player, map, mapPosition, out hashcodeOfCollidedEnemy);
+
+            if (hasCollisionWithEnemy)
+            {
+                Creature collidedEnemy = map.MapCreatures.Single(x => x.GetHashCode() == hashcodeOfCollidedEnemy);
+                player.Attack(collidedEnemy);
+
+                MapFactory.RemoveEnemyByHashCode(map, hashcodeOfCollidedEnemy);
+
+                new Thread(() => killEnemy.Play()).Start();
             }
 
             // TODO: Add your update logic here

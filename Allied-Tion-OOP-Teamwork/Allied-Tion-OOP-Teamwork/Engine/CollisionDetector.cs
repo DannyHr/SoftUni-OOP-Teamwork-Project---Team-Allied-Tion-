@@ -44,5 +44,25 @@ namespace AlliedTionOOP.Engine
             hashcodeOfCollidedItem = 0;
             return false;
         }
+
+        public static bool HasCollisionWithEnemy(Player player, Map map, Vector2 mapPosition, out int hashcodeOfCollidedEnemy)
+        {
+            Rectangle playerRectangle = new Rectangle(player.TopLeftX, player.TopLeftY, player.Image.Width, player.Image.Height);
+
+            foreach (var creature in map.MapCreatures)
+            {
+                bool intersects =
+                    playerRectangle.Intersects(new Rectangle(creature.TopLeftX + (int)mapPosition.X, creature.TopLeftY + (int)mapPosition.Y, creature.Image.Width,
+                        creature.Image.Height));
+                if (intersects)
+                {
+                    hashcodeOfCollidedEnemy = creature.GetHashCode();
+                    return true;
+                }
+            }
+
+            hashcodeOfCollidedEnemy = 0;
+            return false;
+        }
     }
 }
