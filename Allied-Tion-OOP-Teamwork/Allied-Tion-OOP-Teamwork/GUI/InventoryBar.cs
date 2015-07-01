@@ -14,6 +14,14 @@ namespace AlliedTionOOP.GUI
     {
         public static void DrawInventory(Player player, SpriteBatch spriteBatch, ContentManager content)
         {
+            Texture2D beer = content.Load<Texture2D>("GUI/Inventory/block-beer");
+            Texture2D noBeer = content.Load<Texture2D>("GUI/Inventory/block-nobeer");
+            Vector2 beerPosition = new Vector2(400, 650);
+
+            Texture2D redbull = content.Load<Texture2D>("GUI/Inventory/block-redbull");
+            Texture2D noRedbull = content.Load<Texture2D>("GUI/Inventory/block-noredbull");
+            Vector2 redbullPosition = new Vector2(450, 650);
+            
             Texture2D ram = content.Load<Texture2D>("GUI/Inventory/block-ram");
             Texture2D noRam = content.Load<Texture2D>("GUI/Inventory/block-noram");
             Vector2 ramPosition = new Vector2(500, 650);
@@ -34,6 +42,23 @@ namespace AlliedTionOOP.GUI
             Texture2D noResharper = content.Load<Texture2D>("GUI/Inventory/block-noresharper");
             Vector2 resharperPosition = new Vector2(750, 650);
 
+            if (player.Inventory.Any(x => x is Beer))
+            {
+                spriteBatch.Draw(beer, beerPosition);
+            }
+            else
+            {
+                spriteBatch.Draw(noBeer, beerPosition);
+            }
+
+            if (player.Inventory.Any(x => x is RedBull))
+            {
+                spriteBatch.Draw(redbull, redbullPosition);
+            }
+            else
+            {
+                spriteBatch.Draw(noRedbull, redbullPosition);
+            }
 
             if (player.Inventory.Any(x => x is MemoryUpgrade))
             {
