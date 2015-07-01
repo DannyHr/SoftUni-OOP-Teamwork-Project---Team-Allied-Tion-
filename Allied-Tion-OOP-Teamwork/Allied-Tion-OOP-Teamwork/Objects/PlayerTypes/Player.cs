@@ -60,6 +60,8 @@ namespace AlliedTionOOP.Objects.PlayerTypes
                 this.Experience -= this.CurrentLevel*150;
                 this.TotalFocus += 10;
                 this.TotalEnergy += 10;
+                this.CurrentEnergy += 15;
+                this.CurrentFocus += 15;
             }
         }
 

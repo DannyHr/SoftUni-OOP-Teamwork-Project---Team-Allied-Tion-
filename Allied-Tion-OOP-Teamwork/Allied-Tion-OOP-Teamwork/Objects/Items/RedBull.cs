@@ -4,7 +4,7 @@ namespace AlliedTionOOP.Objects.Items
 {
     public class RedBull : Item, IEnergyRestorable
     {
-        private const int EnergyRestoreValue = 40;
+        private const int EnergyRestoreValue = 50;
 
         public RedBull(int topLeftX, int topLeftY)
             : base(RedBullImage, topLeftX, topLeftY)
