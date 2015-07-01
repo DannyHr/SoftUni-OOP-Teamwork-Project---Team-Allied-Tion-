@@ -1,12 +1,12 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test
+namespace AlliedTionOOP
 {
     public static class MainClass
     {
         public const int WindowWidth = 1280;
         public const int WindowHeight = 720;
-        public const string WindowTitle = "Allied Tion OOP Teamwork Test Application";
+        public const string WindowTitle = "Magic University BETA v0.3";
         public const string Music = "../../../Content/Sound/valkyries.mp3";
         public const string GotItem = "../../../Content/Sound/successful2.mp3";
         public const string MapCoordinates = "../../../Content/map-coordinates.txt";

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace Allied_Tion_Monogame_Test.Interfaces
+namespace AlliedTionOOP.Interfaces
 {
     interface ISpeed
     {

@@ -8,8 +8,8 @@
     <ProjectGuid>{E410964E-E49D-4DCD-8ECE-26BE98CB6811}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Allied_Tion_Monogame_Test</RootNamespace>
-    <AssemblyName>Allied-Tion-Monogame-Test</AssemblyName>
+    <RootNamespace>AlliedTionOOP</RootNamespace>
+    <AssemblyName>Allied-Tion-OOP-Teamwork</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>WindowsGL</MonoGamePlatform>
     <MonoGameContentBuilderExe>
@@ -38,6 +38,7 @@
     <ApplicationIcon>Content\oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GUI\StatBar.cs" />
     <Compile Include="Objects\Creatures\Bug.cs" />
     <Compile Include="Objects\Creatures\Creature.cs" />
     <Compile Include="Interfaces\ISpeed.cs" />
@@ -98,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Exceptions\" />
-    <Folder Include="GUI\" />
   </ItemGroup>
   <!-- Specify the search path explicitly so the ResolveAssemblyReferences task picks the right ones -->
   <Target Name="BeforeResolveReferences">

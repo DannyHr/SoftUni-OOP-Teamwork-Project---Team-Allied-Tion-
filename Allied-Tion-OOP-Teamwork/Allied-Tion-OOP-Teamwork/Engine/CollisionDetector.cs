@@ -1,8 +1,8 @@
-﻿using Allied_Tion_Monogame_Test.MapNamespace;
-using Allied_Tion_Monogame_Test.Objects.PlayerTypes;
+﻿using AlliedTionOOP.MapNamespace;
+using AlliedTionOOP.Objects.PlayerTypes;
 using Microsoft.Xna.Framework;
 
-namespace Allied_Tion_Monogame_Test.Engine
+namespace AlliedTionOOP.Engine
 {
     public static class CollisionDetector
     {

@@ -1,4 +1,4 @@
-﻿namespace Allied_Tion_Monogame_Test.Objects.Items
+﻿namespace AlliedTionOOP.Objects.Items
 {
     public enum ItemState
     {

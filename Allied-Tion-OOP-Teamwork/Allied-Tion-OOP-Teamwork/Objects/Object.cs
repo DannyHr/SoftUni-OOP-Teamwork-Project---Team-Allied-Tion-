@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test.Objects
+namespace AlliedTionOOP.Objects
 {
     public abstract class Object : Engine.Engine
     {

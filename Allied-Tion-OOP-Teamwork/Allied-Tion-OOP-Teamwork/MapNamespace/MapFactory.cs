@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Allied_Tion_Monogame_Test.Objects;
-using Allied_Tion_Monogame_Test.Objects.Creatures;
-using Allied_Tion_Monogame_Test.Objects.Items;
-using Microsoft.Xna.Framework;
+using AlliedTionOOP.Objects;
+using AlliedTionOOP.Objects.Creatures;
+using AlliedTionOOP.Objects.Items;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test.MapNamespace
+namespace AlliedTionOOP.MapNamespace
 {
     public static class MapFactory
     {

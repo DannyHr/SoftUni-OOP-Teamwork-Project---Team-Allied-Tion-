@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test.Objects.Items
+namespace AlliedTionOOP.Objects.Items
 {
     public class Item : Object
     {

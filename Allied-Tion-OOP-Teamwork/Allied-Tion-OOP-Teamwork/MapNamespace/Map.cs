@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Allied_Tion_Monogame_Test.Objects;
-using Allied_Tion_Monogame_Test.Objects.Creatures;
-using Allied_Tion_Monogame_Test.Objects.Items;
+using AlliedTionOOP.Objects;
+using AlliedTionOOP.Objects.Creatures;
+using AlliedTionOOP.Objects.Items;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test.MapNamespace
+namespace AlliedTionOOP.MapNamespace
 {
     public class Map
     {

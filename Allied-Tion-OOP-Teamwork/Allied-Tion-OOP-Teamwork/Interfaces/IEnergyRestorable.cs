@@ -1,4 +1,4 @@
-﻿namespace Allied_Tion_Monogame_Test.Interfaces
+﻿namespace AlliedTionOOP.Interfaces
 {
     public interface IEnergyRestorable
     {

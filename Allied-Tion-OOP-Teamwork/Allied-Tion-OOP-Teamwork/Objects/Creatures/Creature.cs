@@ -1,10 +1,12 @@
-﻿using Allied_Tion_Monogame_Test.Interfaces;
+﻿using AlliedTionOOP.Interfaces;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Allied_Tion_Monogame_Test.Objects.Creatures
+namespace AlliedTionOOP.Objects.Creatures
 {
     public abstract class Creature : Object, IDestroyable, IMoveable, IExperienceGiving
     {
+        private bool isAlive;
+
         protected Creature(Texture2D image, int topLeftX, int topLeftY, int energy, int focus, int experienceToGive)
             : base(image, topLeftX, topLeftY)
         {
@@ -16,9 +18,13 @@ namespace Allied_Tion_Monogame_Test.Objects.Creatures
             this.IsAlive = true;
         }
 
-        public bool IsAlive { get; set; }
+        public bool IsAlive
+        {
+            get { return CurrentFocus > 0; }
+            set { this.isAlive = value; }
+        }
 
-        public int TotalEnergy { get; set; }
+        public int TotalEnergy { get; set; } // Total Damage
 
         public int CurrentEnergy { get; set; } // Damage
 

@@ -1,6 +1,6 @@
-﻿using Allied_Tion_Monogame_Test.Interfaces;
+﻿using AlliedTionOOP.Interfaces;
 
-namespace Allied_Tion_Monogame_Test.Objects.Items
+namespace AlliedTionOOP.Objects.Items
 {
     public class RedBull : Item, IEnergyRestorable
     {

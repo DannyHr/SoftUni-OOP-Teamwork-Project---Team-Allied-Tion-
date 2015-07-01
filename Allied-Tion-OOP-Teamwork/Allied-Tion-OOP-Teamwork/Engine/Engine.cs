@@ -1,12 +1,14 @@
-﻿using System.Threading;
-using Allied_Tion_Monogame_Test.MapNamespace;
-using Allied_Tion_Monogame_Test.Objects.PlayerTypes;
-using Allied_Tion_Monogame_Test.Sounds;
+﻿using System.Text;
+using System.Threading;
+using AlliedTionOOP.GUI;
+using AlliedTionOOP.MapNamespace;
+using AlliedTionOOP.Objects.PlayerTypes;
+using AlliedTionOOP.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace Allied_Tion_Monogame_Test.Engine
+namespace AlliedTionOOP.Engine
 {
     public class Engine : Game
     {
@@ -32,7 +34,9 @@ namespace Allied_Tion_Monogame_Test.Engine
         private Sound getItemSound;
         private Sound musicTheme;
 
-        //private SpriteFont spriteFont;
+        private Texture2D barBlock1;
+
+        private SpriteFont spriteFont;
         //private bool intersects = false;
 
         private Map map;
@@ -82,7 +86,9 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             mapPosition = new Vector2(0, 0);
 
-            //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
+            barBlock1 = Content.Load<Texture2D>("GUI/bar-block2");
+
+            this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             player = new NormalStudent();
         }
@@ -172,6 +178,17 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             #endregion
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F))
+            {
+                player.CurrentFocus -= 1;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                player.CurrentEnergy -= 1;
+            }
+
+
             int hashcodeOfCollidedItem;
             bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition, out hashcodeOfCollidedItem);
 
@@ -193,10 +210,25 @@ namespace Allied_Tion_Monogame_Test.Engine
 
             map.Draw(spriteBatch, mapPosition); // draw map with all its elements
 
+            foreach (var mapCreature in map.MapCreatures)
+            {
+                StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
+            }
+
             spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
 
+            StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
+            StatBar.DrawFocusBar(player, 16, spriteBatch, Content, Vector2.Zero);
+
+            spriteBatch.Draw(barBlock1, new Vector2(500, 650));
+            spriteBatch.Draw(barBlock1, new Vector2(550, 650));
+            spriteBatch.Draw(barBlock1, new Vector2(650, 650));
+            spriteBatch.Draw(barBlock1, new Vector2(700, 650));
+            spriteBatch.Draw(barBlock1, new Vector2(750, 650));
+
             ////draw some text
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
+            spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
+            spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
             //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.TotalFocus), new Vector2(100, 20), Color.WhiteSmoke);
 
             spriteBatch.End();

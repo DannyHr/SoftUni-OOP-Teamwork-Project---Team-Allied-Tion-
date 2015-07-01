@@ -1,4 +1,4 @@
-namespace Allied_Tion_Monogame_Test.Objects.Creatures
+namespace AlliedTionOOP.Objects.Creatures
 {
     public class Exception : Creature
     {

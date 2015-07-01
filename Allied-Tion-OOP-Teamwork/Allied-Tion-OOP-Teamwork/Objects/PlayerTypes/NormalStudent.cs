@@ -1,4 +1,4 @@
-﻿namespace Allied_Tion_Monogame_Test.Objects.PlayerTypes
+﻿namespace AlliedTionOOP.Objects.PlayerTypes
 {
     public class NormalStudent : Player
     {

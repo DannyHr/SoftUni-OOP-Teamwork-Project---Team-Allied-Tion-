@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Allied_Tion_Monogame_Test.Sounds
+namespace AlliedTionOOP.Sounds
 {
     public class Sound
     {

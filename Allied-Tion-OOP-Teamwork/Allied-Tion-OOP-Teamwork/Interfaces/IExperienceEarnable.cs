@@ -1,4 +1,4 @@
-﻿namespace Allied_Tion_Monogame_Test.Interfaces
+﻿namespace AlliedTionOOP.Interfaces
 {
     public interface IExperienceEarnable // used for players. When we earn enough XP we level up.
     {
