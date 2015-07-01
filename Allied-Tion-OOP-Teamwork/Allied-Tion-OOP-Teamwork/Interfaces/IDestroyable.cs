@@ -9,5 +9,7 @@
         int TotalEnergy { get; set; }
 
         int CurrentEnergy { get; set; }
+
+        bool IsAlive { get; set; }
     }
 }

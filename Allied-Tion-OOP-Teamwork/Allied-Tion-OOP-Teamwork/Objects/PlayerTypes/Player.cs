@@ -104,20 +104,9 @@ namespace AlliedTionOOP.Objects.PlayerTypes
             this.inventory.Remove(resharper);
         }
 
-        public void Attack(Creature enemy)
+        public override void Attack(Creature enemy)
         {
-            int startFocus = this.CurrentFocus;
-            int startEnergy = this.CurrentEnergy;
-
-            this.CurrentEnergy -= enemy.CurrentEnergy;
-            this.CurrentFocus -= enemy.CurrentFocus;
-            enemy.CurrentFocus -= startFocus;
-            enemy.CurrentEnergy -= startEnergy;
-
-            if (enemy.CurrentFocus <= 0 || enemy.CurrentEnergy <= 0)
-            {
-                enemy.IsAlive = false;
-            }
+            base.Attack(enemy);
 
             this.Experience += enemy.ExperienceToGive;
 

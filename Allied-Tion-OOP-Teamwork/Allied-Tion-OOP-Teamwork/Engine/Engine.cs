@@ -1,7 +1,4 @@
-using System;
 using System.Linq;
-using System.Security;
-using System.Text;
 using System.Threading;
 using AlliedTionOOP.GUI;
 using AlliedTionOOP.MapNamespace;
@@ -372,8 +369,9 @@ namespace AlliedTionOOP.Engine
                 if (closestCreature != null &&
                     DistanceCalculator.GetDistanceBetweenObjects(player, closestCreature, mapPosition) < 80)
                 {
+                    closestCreature.Attack(player);
                     player.Attack(closestCreature);
-
+                    
                     CheckIfCreatureIsAlive(closestCreature);
                 }
 
