@@ -43,6 +43,8 @@ namespace AlliedTionOOP.Engine
         private Map map;
         private Player player;
         private Vector2 mapPosition;
+        bool isKeyDownBeer = false;
+        bool isKeyDownRedBull = false;
 
         public Engine()
         {
@@ -61,7 +63,7 @@ namespace AlliedTionOOP.Engine
             this.Window.Position = new Point((MainClass.CurrentScreenWidth - MainClass.WindowWidth) / 2,
                 (MainClass.CurrentScreenHeight - MainClass.WindowHeight) / 2);
 
-            this.graphics.ToggleFullScreen();
+            //this.graphics.ToggleFullScreen();
             //this.Window.IsBorderless = true;
 
             LoadImages();
@@ -218,20 +220,32 @@ namespace AlliedTionOOP.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
-                if (beerToUse != null)
-                {
-                    player.GetFocus(beerToUse);
-                }
+                isKeyDownBeer=true;
             }
+                if (Keyboard.GetState().IsKeyUp(Keys.Z) && isKeyDownBeer)
+                {
+                    Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
+                    if (beerToUse != null)
+                    {
+                        player.GetFocus(beerToUse);
+                    }
+                    isKeyDownBeer = false;
+                }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.X))
+
+                if (Keyboard.GetState().IsKeyDown(Keys.X))
+                {
+                    isKeyDownRedBull = true;
+                }
+
+            if (Keyboard.GetState().IsKeyUp(Keys.X) && isKeyDownRedBull)
             {
                 RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
                 if (redbullToUse != null)
                 {
                     player.GetEnergy(redbullToUse);
                 }
+                isKeyDownRedBull = false;
             }
 
 
@@ -255,11 +269,14 @@ namespace AlliedTionOOP.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.B))
             {
+                if(Keyboard.GetState().IsKeyUp(Keys.B))
+                { 
                 ProcessorUpgrade processorToUse = player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
                 if (processorToUse != null)
                 {
                     player.ProcessorUpgrade(processorToUse);
                 }
+            }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
