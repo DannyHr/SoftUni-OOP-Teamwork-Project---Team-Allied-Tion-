@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>D:/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/Content/GUI/Inventory/block-book.png</SourceFile>
-  <SourceTime>2015-07-01T12:53:16+03:00</SourceTime>
-  <DestFile>D:/Dropbox/SoftUni/1. OOP/Teamwork Project/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/Content/bin/WindowsGL/GUI/Inventory/block-book.xnb</DestFile>
-  <DestTime>2015-07-01T14:52:51.2534816+03:00</DestTime>
+  <SourceFile>C:/Users/gad/Desktop/Teamwork OOP/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/Content/GUI/Inventory/block-book.png</SourceFile>
+  <SourceTime>2015-07-01T16:35:11.7793938+03:00</SourceTime>
+  <DestFile>C:/Users/gad/Desktop/Teamwork OOP/Allied-Tion-OOP-Teamwork/Allied-Tion-OOP-Teamwork/Content/bin/WindowsGL/GUI/Inventory/block-book.xnb</DestFile>
+  <DestTime>2015-07-01T16:35:52.3698121+03:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2015-04-29T20:14:44+03:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

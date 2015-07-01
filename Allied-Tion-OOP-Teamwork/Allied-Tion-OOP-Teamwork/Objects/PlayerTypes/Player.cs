@@ -57,6 +57,7 @@ namespace AlliedTionOOP.Objects.PlayerTypes
             {
                 this.CurrentLevel++;
                 this.levelUpExperience += 150;
+                this.Experience -= this.CurrentLevel*150;
                 this.TotalFocus += 10;
                 this.TotalEnergy += 10;
             }

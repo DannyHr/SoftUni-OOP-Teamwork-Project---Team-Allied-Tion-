@@ -42,7 +42,7 @@ namespace AlliedTionOOP.GUI
         {
             spriteBatch.Draw(content.Load<Texture2D>("GUI/statbar"), new Vector2(player.TopLeftX + mapPosition.X, player.TopLeftY - barOffSet + mapPosition.Y));
 
-            double percentageFull = player.Experience - (player.CurrentLevel - 1) * 150; // fix the formula!
+            double percentageFull = ((double)player.Experience / player.LevelUpExperience) * FullBarWidth; // fix the formula!
 
             for (int i = 0; i < percentageFull; i++)
             {
