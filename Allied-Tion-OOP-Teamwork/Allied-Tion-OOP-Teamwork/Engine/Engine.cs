@@ -8,6 +8,7 @@ using AlliedTionOOP.MapNamespace;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
 using AlliedTionOOP.Objects.PlayerTypes;
+using AlliedTionOOP.Physics;
 using AlliedTionOOP.Sounds;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

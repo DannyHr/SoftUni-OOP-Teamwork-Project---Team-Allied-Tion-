@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
 using AlliedTionOOP.MapNamespace;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.PlayerTypes;
 using Microsoft.Xna.Framework;
 
-namespace AlliedTionOOP.Engine
+namespace AlliedTionOOP.Physics
 {
     public static class DistanceCalculator
     {

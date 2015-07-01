@@ -38,7 +38,7 @@
     <ApplicationIcon>Content\oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Engine\DistanceCalculator.cs" />
+    <Compile Include="Physics\DistanceCalculator.cs" />
     <Compile Include="GUI\InventoryBar.cs" />
     <Compile Include="GUI\StatBar.cs" />
     <Compile Include="GUI\Target.cs" />
@@ -52,7 +52,7 @@
     <Compile Include="Objects\PlayerTypes\Nerd.cs" />
     <Compile Include="Objects\PlayerTypes\NormalStudent.cs" />
     <Compile Include="Objects\PlayerTypes\PartyAnimal.cs" />
-    <Compile Include="Engine\CollisionDetector.cs" />
+    <Compile Include="Physics\CollisionDetector.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Interfaces\IAttack.cs" />
     <Compile Include="Interfaces\ICollect.cs" />
@@ -82,17 +82,10 @@
     <Compile Include="Sounds\Sound.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="NVorbis">
-      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsGL\NVorbis.dll</HintPath>
-    </Reference>
-    <Reference Include="OpenTK">
-      <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MSBuildProgramFiles32)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\oop-teamwork-icon.ico" />

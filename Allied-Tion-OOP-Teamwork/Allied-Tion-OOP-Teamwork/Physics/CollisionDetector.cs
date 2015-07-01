@@ -2,7 +2,7 @@
 using AlliedTionOOP.Objects.PlayerTypes;
 using Microsoft.Xna.Framework;
 
-namespace AlliedTionOOP.Engine
+namespace AlliedTionOOP.Physics
 {
     public static class CollisionDetector
     {
