@@ -249,12 +249,15 @@ namespace AlliedTionOOP.Engine
             foreach (var mapCreature in map.MapCreatures)
             {
                 StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
+                StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, Content, mapPosition);
             }
 
             spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
 
             StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
-            StatBar.DrawFocusBar(player, 16, spriteBatch, Content, Vector2.Zero);
+            StatBar.DrawFocusBar(player, 13, spriteBatch, Content, Vector2.Zero);
+            StatBar.DrawExperienceBar(player, 16, spriteBatch, Content, Vector2.Zero);
+
 
             InventoryBar.DrawInventory(player, spriteBatch, Content);
 

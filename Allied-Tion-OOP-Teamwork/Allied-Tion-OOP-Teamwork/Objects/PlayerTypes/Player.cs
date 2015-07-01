@@ -37,6 +37,11 @@ namespace AlliedTionOOP.Objects.PlayerTypes
             get { return this.inventory; }
         }
 
+        public int LevelUpExperience
+        {
+            get { return this.levelUpExperience; }
+        }
+
         public int Experience { get; set; }
 
         public int CurrentLevel { get; set; }

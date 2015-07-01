@@ -45,3 +45,4 @@ D:\Dropbox\SoftUni\1. OOP\Teamwork Project\Allied-Tion-OOP-Teamwork\Allied-Tion-
 D:\Dropbox\SoftUni\1. OOP\Teamwork Project\Allied-Tion-OOP-Teamwork\Allied-Tion-OOP-Teamwork\bin\WindowsGL\Debug\Content\GUI\Inventory\block-nobeer.xnb
 D:\Dropbox\SoftUni\1. OOP\Teamwork Project\Allied-Tion-OOP-Teamwork\Allied-Tion-OOP-Teamwork\bin\WindowsGL\Debug\Content\GUI\Inventory\block-noredbull.xnb
 D:\Dropbox\SoftUni\1. OOP\Teamwork Project\Allied-Tion-OOP-Teamwork\Allied-Tion-OOP-Teamwork\bin\WindowsGL\Debug\Content\GUI\Inventory\block-redbull.xnb
+D:\Dropbox\SoftUni\1. OOP\Teamwork Project\Allied-Tion-OOP-Teamwork\Allied-Tion-OOP-Teamwork\bin\WindowsGL\Debug\Content\GUI\experience-filler.xnb
