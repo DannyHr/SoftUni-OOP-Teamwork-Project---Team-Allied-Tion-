@@ -216,7 +216,7 @@ namespace AlliedTionOOP.Engine
                 new Thread(() => killEnemy.Play()).Start();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
                 Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
                 if (beerToUse != null)
@@ -225,7 +225,7 @@ namespace AlliedTionOOP.Engine
                 }
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
             {
                 RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
                 if (redbullToUse != null)
@@ -233,6 +233,53 @@ namespace AlliedTionOOP.Engine
                     player.GetEnergy(redbullToUse);
                 }
             }
+
+
+            if (Keyboard.GetState().IsKeyDown(Keys.C))
+            {
+                MemoryUpgrade memoryToUse = player.Inventory.FirstOrDefault(m => m is MemoryUpgrade) as MemoryUpgrade;
+                if (memoryToUse != null)
+                {
+                    player.MemoryUpgrade(memoryToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.V))
+            {
+                DiskUpgrade diskToUse = player.Inventory.FirstOrDefault(d => d is DiskUpgrade) as DiskUpgrade;
+                if (diskToUse != null)
+                {
+                    player.DiskUpgrade(diskToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                ProcessorUpgrade processorToUse = player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
+                if (processorToUse != null)
+                {
+                    player.ProcessorUpgrade(processorToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.N))
+            {
+                NakovBook bookToUse = player.Inventory.FirstOrDefault(b => b is NakovBook) as NakovBook;
+                if (bookToUse != null)
+                {
+                    player.NakovBook(bookToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.M))
+            {
+                Resharper resharperToUse = player.Inventory.FirstOrDefault(r => r is Resharper) as Resharper;
+                if (resharperToUse != null)
+                {
+                    player.Resharper(resharperToUse);
+                }
+            }
+
 
             // TODO: Add your update logic here
 

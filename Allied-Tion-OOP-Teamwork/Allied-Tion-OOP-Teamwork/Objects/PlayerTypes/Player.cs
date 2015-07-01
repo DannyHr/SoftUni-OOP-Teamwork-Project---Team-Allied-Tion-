@@ -93,6 +93,18 @@ namespace AlliedTionOOP.Objects.PlayerTypes
             this.inventory.Remove(redbull);
         }
 
+        public void ProcessorUpgrade(ProcessorUpgrade processor)
+        {
+            this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + processor.EnergyIncrease);
+            this.inventory.Remove(processor);
+        }
+
+        public void Resharper(Resharper resharper)
+        {
+            this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + resharper.EnergyIncrease);
+            this.inventory.Remove(resharper);
+        }
+
         public void Attack(Creature enemy)
         {
             int startFocus = this.CurrentFocus;
