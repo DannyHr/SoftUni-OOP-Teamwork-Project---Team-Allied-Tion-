@@ -244,12 +244,6 @@
 /processorParam:TextureFormat=Color
 /build:CharacterTextures\bug.png
 
-#begin SpriteFont.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:TextureFormat=Compressed
-/build:SpriteFont.spritefont
-
 #begin GUI/energy-filler.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -469,4 +463,16 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:TextureFormat=Color
 /build:GUI/Inventory/block-level.png
+
+#begin InventoryNumberOfItems.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:InventoryNumberOfItems.spritefont
+
+#begin redbullFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:TextureFormat=Compressed
+/build:redbullFont.spritefont
 

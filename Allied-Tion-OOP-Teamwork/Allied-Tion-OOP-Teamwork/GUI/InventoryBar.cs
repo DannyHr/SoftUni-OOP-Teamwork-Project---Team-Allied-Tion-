@@ -14,14 +14,18 @@ namespace AlliedTionOOP.GUI
     {
         public static void DrawInventory(Player player, SpriteBatch spriteBatch, ContentManager content)
         {
+            SpriteFont inventoryNumberFont = content.Load<SpriteFont>("InventoryNumberOfItems");
+
             Texture2D beer = content.Load<Texture2D>("GUI/Inventory/block-beer");
             Texture2D noBeer = content.Load<Texture2D>("GUI/Inventory/block-nobeer");
             Vector2 beerPosition = new Vector2(400, 650);
+            int numberOfBeers = player.Inventory.Count(item => item is Beer);
 
             Texture2D redbull = content.Load<Texture2D>("GUI/Inventory/block-redbull");
             Texture2D noRedbull = content.Load<Texture2D>("GUI/Inventory/block-noredbull");
             Vector2 redbullPosition = new Vector2(450, 650);
-            
+            int numberOfRedbulls = player.Inventory.Count(item => item is RedBull);
+
             Texture2D ram = content.Load<Texture2D>("GUI/Inventory/block-ram");
             Texture2D noRam = content.Load<Texture2D>("GUI/Inventory/block-noram");
             Vector2 ramPosition = new Vector2(500, 650);
@@ -48,6 +52,7 @@ namespace AlliedTionOOP.GUI
             if (player.Inventory.Any(x => x is Beer))
             {
                 spriteBatch.Draw(beer, beerPosition);
+                spriteBatch.DrawString(inventoryNumberFont, numberOfBeers.ToString(), new Vector2(beerPosition.X + 36, beerPosition.Y + 4), Color.WhiteSmoke);
             }
             else
             {
@@ -57,6 +62,7 @@ namespace AlliedTionOOP.GUI
             if (player.Inventory.Any(x => x is RedBull))
             {
                 spriteBatch.Draw(redbull, redbullPosition);
+                spriteBatch.DrawString(inventoryNumberFont, numberOfRedbulls.ToString(), new Vector2(redbullPosition.X + 36, redbullPosition.Y + 4), Color.WhiteSmoke);
             }
             else
             {
