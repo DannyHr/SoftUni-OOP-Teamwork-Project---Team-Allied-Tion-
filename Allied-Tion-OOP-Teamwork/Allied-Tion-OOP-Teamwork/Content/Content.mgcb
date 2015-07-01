@@ -464,15 +464,15 @@
 /processorParam:TextureFormat=Color
 /build:GUI/Inventory/block-level.png
 
-#begin InventoryNumberOfItems.spritefont
+#begin Fonts/NoItemFont.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:InventoryNumberOfItems.spritefont
+/build:Fonts/NoItemFont.spritefont
 
-#begin redbullFont.spritefont
+#begin Fonts/InventoryNumberOfItems.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:TextureFormat=Compressed
-/build:redbullFont.spritefont
+/build:Fonts/InventoryNumberOfItems.spritefont
 

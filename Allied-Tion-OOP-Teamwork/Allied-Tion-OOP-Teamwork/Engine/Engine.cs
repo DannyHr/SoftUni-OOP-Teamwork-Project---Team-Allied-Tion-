@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -34,15 +35,18 @@ namespace AlliedTionOOP.Engine
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
+        //private SpriteFont spriteFont;
+        //private string noItemMessage = "";
+        //private SpriteFont noItemMessageFont;
+
         private Sound getItemSound;
         private Sound musicTheme;
         private Sound killEnemy;
 
-        //private SpriteFont spriteFont;
-
         private Map map;
         private Player player;
         private Vector2 mapPosition;
+
         bool isKeyDownBeer = false;
         bool isKeyDownRedBull = false;
 
@@ -90,8 +94,8 @@ namespace AlliedTionOOP.Engine
 
             mapPosition = new Vector2(0, 0);
 
-
             //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
+            //this.noItemMessageFont = Content.Load<SpriteFont>("Fonts/NoItemFont");
 
             player = new NormalStudent();
         }
@@ -103,9 +107,112 @@ namespace AlliedTionOOP.Engine
 
         protected override void Update(GameTime gameTime)
         {
+            if (player.IsAlive)
+            {
+                //TODO: Player gets stuck with objects in some pixels?
+                CheckForPlayerMovementInput();
 
-            //TODO: Player gets stuck with objects in some pixels?
-            #region ChecksForInputs
+                #region CheckForCollisionWithItem
+
+                int hashcodeOfCollidedItem;
+                bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition,
+                    out hashcodeOfCollidedItem);
+
+                if (hasCollisionWithItem)
+                {
+                    Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
+                    player.AddItemToInventory(collidedItem);
+
+                    this.map.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
+
+                    new Thread(() => getItemSound.Play()).Start();
+                }
+
+                #endregion
+
+                //TODO: Create manual attack with shortcuts
+
+                #region CheckForCollisionWithEnemy
+
+                int hashcodeOfCollidedEnemy;
+                bool hasCollisionWithEnemy = CollisionDetector.HasCollisionWithEnemy(player, map, mapPosition,
+                    out hashcodeOfCollidedEnemy);
+
+                if (hasCollisionWithEnemy)
+                {
+                    Creature collidedEnemy = map.MapCreatures.Single(x => x.GetHashCode() == hashcodeOfCollidedEnemy);
+                    player.Attack(collidedEnemy);
+
+                    this.map.RemoveEnemyByHashCode(map, hashcodeOfCollidedEnemy);
+
+                    new Thread(() => killEnemy.Play()).Start();
+                }
+
+                #endregion
+
+                CheckForItemShortcutPressed();
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    base.Exit();
+                }
+            }
+
+            base.Update(gameTime);
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.Gray);
+            spriteBatch.Begin();
+
+            map.Draw(spriteBatch, mapPosition); // draw map with all its elements
+
+            foreach (var mapCreature in map.MapCreatures)
+            {
+                StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
+                StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, Content, mapPosition);
+            }
+
+            spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
+
+            StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
+            StatBar.DrawFocusBar(player, 13, spriteBatch, Content, Vector2.Zero);
+            StatBar.DrawExperienceBar(player, 16, spriteBatch, Content, Vector2.Zero);
+
+            InventoryBar.DrawInventory(player, spriteBatch, Content);
+
+            ////draw some text
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.TotalFocus), new Vector2(100, 20), Color.WhiteSmoke);
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
+        }
+
+        private void LoadImages()
+        {
+            BugImage = Content.Load<Texture2D>("CharacterTextures/bug");
+            ExceptionImage = Content.Load<Texture2D>("CharacterTextures/exception");
+            ExamBossImage = Content.Load<Texture2D>("CharacterTextures/exam");
+
+            PlayerNerdSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
+            PlayerNormalSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
+            PlayerPartySkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
+
+            ProcessorUpgradeImage = Content.Load<Texture2D>("ItemsTextures/cpu-x35");
+            MemoryUpgradeImage = Content.Load<Texture2D>("ItemsTextures/ram");
+            DiskUpgradeImage = Content.Load<Texture2D>("ItemsTextures/hdd");
+            NakovBookImage = Content.Load<Texture2D>("ItemsTextures/book");
+            ResharperImage = Content.Load<Texture2D>("ItemsTextures/RSharper");
+            BeerImage = Content.Load<Texture2D>("ItemsTextures/beerx32");
+            RedBullImage = Content.Load<Texture2D>("ItemsTextures/redbull");
+        }
+
+        public void CheckForPlayerMovementInput()
+        {
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (player.TopLeftX < MainClass.WindowWidth / 2
@@ -173,85 +280,48 @@ namespace AlliedTionOOP.Engine
                     mapPosition.Y += player.Speed.Y;
                 }
             }
+        }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                Exit();
-            }
-
-            #endregion
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.F))
-            //{
-            //    player.CurrentFocus -= 1;
-            //}
-
-            //if (Keyboard.GetState().IsKeyDown(Keys.E))
-            //{
-            //    player.CurrentEnergy -= 1;
-            //}
-
-
-            int hashcodeOfCollidedItem;
-            bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition, out hashcodeOfCollidedItem);
-
-            if (hasCollisionWithItem)
-            {
-                Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
-                player.AddItemToInventory(collidedItem);
-
-                MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
-
-                new Thread(() => getItemSound.Play()).Start();
-            }
-
-            int hashcodeOfCollidedEnemy;
-            bool hasCollisionWithEnemy = CollisionDetector.HasCollisionWithEnemy(player, map, mapPosition, out hashcodeOfCollidedEnemy);
-
-            if (hasCollisionWithEnemy)
-            {
-                Creature collidedEnemy = map.MapCreatures.Single(x => x.GetHashCode() == hashcodeOfCollidedEnemy);
-                player.Attack(collidedEnemy);
-
-                MapFactory.RemoveEnemyByHashCode(map, hashcodeOfCollidedEnemy);
-
-                new Thread(() => killEnemy.Play()).Start();
-            }
-
+        public void CheckForItemShortcutPressed()
+        {
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                isKeyDownBeer=true;
+                isKeyDownBeer = true;
             }
-                if (Keyboard.GetState().IsKeyUp(Keys.Z) && isKeyDownBeer)
+
+            if (Keyboard.GetState().IsKeyUp(Keys.Z) && isKeyDownBeer)
+            {
+                Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
+
+                if (beerToUse != null)
                 {
-                    Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
-                    if (beerToUse != null)
-                    {
-                        player.GetFocus(beerToUse);
-                    }
-                    isKeyDownBeer = false;
+                    player.GetFocus(beerToUse);
                 }
 
+                isKeyDownBeer = false;
+            }
 
-                if (Keyboard.GetState().IsKeyDown(Keys.X))
-                {
-                    isKeyDownRedBull = true;
-                }
+            if (Keyboard.GetState().IsKeyDown(Keys.X))
+            {
+                isKeyDownRedBull = true;
+            }
 
             if (Keyboard.GetState().IsKeyUp(Keys.X) && isKeyDownRedBull)
             {
                 RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
+
                 if (redbullToUse != null)
                 {
                     player.GetEnergy(redbullToUse);
                 }
+
                 isKeyDownRedBull = false;
             }
-
 
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
                 MemoryUpgrade memoryToUse = player.Inventory.FirstOrDefault(m => m is MemoryUpgrade) as MemoryUpgrade;
+
                 if (memoryToUse != null)
                 {
                     player.MemoryUpgrade(memoryToUse);
@@ -261,6 +331,7 @@ namespace AlliedTionOOP.Engine
             if (Keyboard.GetState().IsKeyDown(Keys.V))
             {
                 DiskUpgrade diskToUse = player.Inventory.FirstOrDefault(d => d is DiskUpgrade) as DiskUpgrade;
+
                 if (diskToUse != null)
                 {
                     player.DiskUpgrade(diskToUse);
@@ -269,19 +340,18 @@ namespace AlliedTionOOP.Engine
 
             if (Keyboard.GetState().IsKeyDown(Keys.B))
             {
-                if(Keyboard.GetState().IsKeyUp(Keys.B))
-                { 
                 ProcessorUpgrade processorToUse = player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
+
                 if (processorToUse != null)
                 {
                     player.ProcessorUpgrade(processorToUse);
                 }
             }
-            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
             {
                 NakovBook bookToUse = player.Inventory.FirstOrDefault(b => b is NakovBook) as NakovBook;
+
                 if (bookToUse != null)
                 {
                     player.NakovBook(bookToUse);
@@ -296,63 +366,10 @@ namespace AlliedTionOOP.Engine
                     player.Resharper(resharperToUse);
                 }
             }
-
-
-            // TODO: Add your update logic here
-
-            base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.Gray);
-            spriteBatch.Begin();
 
-            map.Draw(spriteBatch, mapPosition); // draw map with all its elements
-
-            foreach (var mapCreature in map.MapCreatures)
-            {
-                StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
-                StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, Content, mapPosition);
-            }
-
-            spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
-
-            StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
-            StatBar.DrawFocusBar(player, 13, spriteBatch, Content, Vector2.Zero);
-            StatBar.DrawExperienceBar(player, 16, spriteBatch, Content, Vector2.Zero);
-
-
-            InventoryBar.DrawInventory(player, spriteBatch, Content);
-
-            ////draw some text
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.TotalFocus), new Vector2(100, 20), Color.WhiteSmoke);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime);
-        }
-
-        private void LoadImages()
-        {
-            BugImage = Content.Load<Texture2D>("CharacterTextures/bug");
-            ExceptionImage = Content.Load<Texture2D>("CharacterTextures/exception");
-            ExamBossImage = Content.Load<Texture2D>("CharacterTextures/exam");
-
-            PlayerNerdSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
-            PlayerNormalSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
-            PlayerPartySkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
-
-            ProcessorUpgradeImage = Content.Load<Texture2D>("ItemsTextures/cpu-x35");
-            MemoryUpgradeImage = Content.Load<Texture2D>("ItemsTextures/ram");
-            DiskUpgradeImage = Content.Load<Texture2D>("ItemsTextures/hdd");
-            NakovBookImage = Content.Load<Texture2D>("ItemsTextures/book");
-            ResharperImage = Content.Load<Texture2D>("ItemsTextures/RSharper");
-            BeerImage = Content.Load<Texture2D>("ItemsTextures/beerx32");
-            RedBullImage = Content.Load<Texture2D>("ItemsTextures/redbull");
-        }
     }
 }
+
 

@@ -14,7 +14,7 @@ namespace AlliedTionOOP.GUI
     {
         public static void DrawInventory(Player player, SpriteBatch spriteBatch, ContentManager content)
         {
-            SpriteFont inventoryNumberFont = content.Load<SpriteFont>("InventoryNumberOfItems");
+            SpriteFont inventoryNumberFont = content.Load<SpriteFont>("Fonts/InventoryNumberOfItems");
 
             Texture2D beer = content.Load<Texture2D>("GUI/Inventory/block-beer");
             Texture2D noBeer = content.Load<Texture2D>("GUI/Inventory/block-nobeer");

@@ -135,15 +135,5 @@ namespace AlliedTionOOP.MapNamespace
         {
             map.Image = mapImage;
         }
-
-        public static void RemoveMapItemByHashCode(Map map, int hashCodeOfItemToRemove)
-        {
-            map.MapItems.Remove(map.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
-        }
-
-        public static void RemoveEnemyByHashCode(Map map, int hashCodeOfEnemyToRemove)
-        {
-            map.MapCreatures.Remove(map.MapCreatures.Single(en => en.GetHashCode() == hashCodeOfEnemyToRemove));
-        }
     }
 }

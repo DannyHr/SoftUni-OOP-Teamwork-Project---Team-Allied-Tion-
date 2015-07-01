@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AlliedTionOOP.Objects;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
@@ -57,6 +58,17 @@ namespace AlliedTionOOP.MapNamespace
             {
                 spriteBatch.Draw(mapItem.Image, new Vector2(mapItem.TopLeftX + mapPosition.X, mapItem.TopLeftY + mapPosition.Y));
             }
+        }
+
+
+        public void RemoveMapItemByHashCode(Map map, int hashCodeOfItemToRemove)
+        {
+            map.MapItems.Remove(map.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
+        }
+
+        public void RemoveEnemyByHashCode(Map map, int hashCodeOfEnemyToRemove)
+        {
+            map.MapCreatures.Remove(map.MapCreatures.Single(en => en.GetHashCode() == hashCodeOfEnemyToRemove));
         }
     }
 }
