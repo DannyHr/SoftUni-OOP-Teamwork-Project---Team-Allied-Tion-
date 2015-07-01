@@ -61,7 +61,7 @@ namespace AlliedTionOOP.Engine
             this.Window.Position = new Point((MainClass.CurrentScreenWidth - MainClass.WindowWidth) / 2,
                 (MainClass.CurrentScreenHeight - MainClass.WindowHeight) / 2);
 
-            //this.graphics.ToggleFullScreen();
+            this.graphics.ToggleFullScreen();
             //this.Window.IsBorderless = true;
 
             LoadImages();

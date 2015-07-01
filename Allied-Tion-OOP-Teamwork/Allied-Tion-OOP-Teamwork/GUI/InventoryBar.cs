@@ -34,6 +34,9 @@ namespace AlliedTionOOP.GUI
             Texture2D noCpu = content.Load<Texture2D>("GUI/Inventory/block-nocpu");
             Vector2 cpuPosition = new Vector2(600, 650);
 
+            Texture2D level = content.Load<Texture2D>("GUI/Inventory/block-level");
+            Vector2 levelPosition = new Vector2(650, 650);
+
             Texture2D book = content.Load<Texture2D>("GUI/Inventory/block-book");
             Texture2D noBook = content.Load<Texture2D>("GUI/Inventory/block-nobook");
             Vector2 bookPosition = new Vector2(700, 650);
@@ -86,6 +89,8 @@ namespace AlliedTionOOP.GUI
             {
                 spriteBatch.Draw(noCpu, cpuPosition);
             }
+
+            spriteBatch.Draw(level, levelPosition);
 
             if (player.Inventory.Any(x => x is NakovBook))
             {
