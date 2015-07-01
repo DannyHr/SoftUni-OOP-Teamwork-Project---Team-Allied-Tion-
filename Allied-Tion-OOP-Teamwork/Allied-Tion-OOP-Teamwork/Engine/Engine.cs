@@ -1,7 +1,9 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Threading;
 using AlliedTionOOP.GUI;
 using AlliedTionOOP.MapNamespace;
+using AlliedTionOOP.Objects.Items;
 using AlliedTionOOP.Objects.PlayerTypes;
 using AlliedTionOOP.Sounds;
 using Microsoft.Xna.Framework;
@@ -34,10 +36,7 @@ namespace AlliedTionOOP.Engine
         private Sound getItemSound;
         private Sound musicTheme;
 
-        private Texture2D barBlock1;
-
-        private SpriteFont spriteFont;
-        //private bool intersects = false;
+        //private SpriteFont spriteFont;
 
         private Map map;
         private Player player;
@@ -86,9 +85,8 @@ namespace AlliedTionOOP.Engine
 
             mapPosition = new Vector2(0, 0);
 
-            barBlock1 = Content.Load<Texture2D>("GUI/bar-block2");
 
-            this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
+            //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
 
             player = new NormalStudent();
         }
@@ -178,15 +176,15 @@ namespace AlliedTionOOP.Engine
 
             #endregion
 
-            if (Keyboard.GetState().IsKeyDown(Keys.F))
-            {
-                player.CurrentFocus -= 1;
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.F))
+            //{
+            //    player.CurrentFocus -= 1;
+            //}
 
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
-            {
-                player.CurrentEnergy -= 1;
-            }
+            //if (Keyboard.GetState().IsKeyDown(Keys.E))
+            //{
+            //    player.CurrentEnergy -= 1;
+            //}
 
 
             int hashcodeOfCollidedItem;
@@ -194,7 +192,11 @@ namespace AlliedTionOOP.Engine
 
             if (hasCollisionWithItem)
             {
+                Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
+                player.AddItemToInventory(collidedItem);
+
                 MapFactory.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
+
                 new Thread(() => getItemSound.Play()).Start();
             }
 
@@ -220,15 +222,11 @@ namespace AlliedTionOOP.Engine
             StatBar.DrawEnergyBar(player, 10, spriteBatch, Content, Vector2.Zero);
             StatBar.DrawFocusBar(player, 16, spriteBatch, Content, Vector2.Zero);
 
-            spriteBatch.Draw(barBlock1, new Vector2(500, 650));
-            spriteBatch.Draw(barBlock1, new Vector2(550, 650));
-            spriteBatch.Draw(barBlock1, new Vector2(650, 650));
-            spriteBatch.Draw(barBlock1, new Vector2(700, 650));
-            spriteBatch.Draw(barBlock1, new Vector2(750, 650));
+            InventoryBar.DrawInventory(player, spriteBatch, Content);
 
             ////draw some text
-            spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
-            spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
+            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
             //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.TotalFocus), new Vector2(100, 20), Color.WhiteSmoke);
 
             spriteBatch.End();

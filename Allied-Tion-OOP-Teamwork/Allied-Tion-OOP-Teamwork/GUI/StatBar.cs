@@ -12,7 +12,7 @@ namespace AlliedTionOOP.GUI
 
         public static void DrawEnergyBar(Creature creature, int barOffSet, SpriteBatch spriteBatch, ContentManager content, Vector2 mapPosition)
         {
-            spriteBatch.Draw(content.Load<Texture2D>("GUI/bar"), new Vector2(creature.TopLeftX + mapPosition.X, creature.TopLeftY - barOffSet + mapPosition.Y));
+            spriteBatch.Draw(content.Load<Texture2D>("GUI/statbar"), new Vector2(creature.TopLeftX + mapPosition.X, creature.TopLeftY - barOffSet + mapPosition.Y));
 
             double percentageFull = ((double)creature.CurrentEnergy / creature.TotalEnergy) * FullBarWidth;
 
@@ -26,7 +26,7 @@ namespace AlliedTionOOP.GUI
 
         public static void DrawFocusBar(Creature creature, int barOffSet, SpriteBatch spriteBatch, ContentManager content, Vector2 mapPosition)
         {
-            spriteBatch.Draw(content.Load<Texture2D>("GUI/bar"), new Vector2(creature.TopLeftX + mapPosition.X, creature.TopLeftY - barOffSet + mapPosition.Y));
+            spriteBatch.Draw(content.Load<Texture2D>("GUI/statbar"), new Vector2(creature.TopLeftX + mapPosition.X, creature.TopLeftY - barOffSet + mapPosition.Y));
 
             double percentageFull = ((double)creature.CurrentFocus / creature.TotalFocus) * FullBarWidth;
 

@@ -12,6 +12,7 @@ namespace AlliedTionOOP.Objects.PlayerTypes
     {
         private const int PlayerTopLeftX = 5;
         private const int PlayerTopLeftY = 5;
+
         private int levelUpExperience = 150; 
 
         private readonly List<Item> inventory;
@@ -88,7 +89,6 @@ namespace AlliedTionOOP.Objects.PlayerTypes
 
         public void Attack(Creature enemy)
         {
-
             int startFocus = this.CurrentFocus;
             int startEnergy = this.CurrentEnergy;
             this.CurrentEnergy -= enemy.CurrentEnergy;

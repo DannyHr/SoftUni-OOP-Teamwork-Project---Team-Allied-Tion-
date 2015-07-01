@@ -38,6 +38,7 @@
     <ApplicationIcon>Content\oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GUI\InventoryBar.cs" />
     <Compile Include="GUI\StatBar.cs" />
     <Compile Include="Objects\Creatures\Bug.cs" />
     <Compile Include="Objects\Creatures\Creature.cs" />
