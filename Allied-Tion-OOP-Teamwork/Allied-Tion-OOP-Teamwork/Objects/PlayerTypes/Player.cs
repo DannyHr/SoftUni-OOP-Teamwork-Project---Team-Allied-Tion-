@@ -83,7 +83,7 @@ namespace AlliedTionOOP.Objects.PlayerTypes
 
         public void GetEnergy(RedBull redbull)
         {
-            this.CurrentFocus = Math.Min(this.TotalFocus, this.CurrentFocus + redbull.EnergyRestore);
+            this.CurrentEnergy = Math.Min(this.TotalEnergy, this.CurrentEnergy + redbull.EnergyRestore);
             this.inventory.Remove(redbull);
         }
 

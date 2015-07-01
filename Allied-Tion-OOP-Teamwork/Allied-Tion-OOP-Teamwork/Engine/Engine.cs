@@ -216,6 +216,24 @@ namespace AlliedTionOOP.Engine
                 new Thread(() => killEnemy.Play()).Start();
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                Beer beerToUse = player.Inventory.FirstOrDefault(b => b is Beer) as Beer;
+                if (beerToUse != null)
+                {
+                    player.GetFocus(beerToUse);
+                }
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
+                if (redbullToUse != null)
+                {
+                    player.GetEnergy(redbullToUse);
+                }
+            }
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
