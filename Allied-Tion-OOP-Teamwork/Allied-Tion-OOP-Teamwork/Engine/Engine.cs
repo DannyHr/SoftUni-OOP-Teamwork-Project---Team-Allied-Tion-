@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading;
 using AlliedTionOOP.GUI;
@@ -47,8 +48,11 @@ namespace AlliedTionOOP.Engine
         private Player player;
         private Vector2 mapPosition;
 
-        bool isKeyDownBeer = false;
-        bool isKeyDownRedBull = false;
+        private Creature closestCreature;
+
+        private bool isKeyDownBeer = false;
+        private bool isKeyDownRedBull = false;
+        private bool isKeyDownAttack = false;
 
         public Engine()
         {
@@ -89,7 +93,7 @@ namespace AlliedTionOOP.Engine
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            MapFactory.LoadMapImage(map, Content.Load<Texture2D>("MapElementsTextures/map"));
+            map.SetMapBackground(Content.Load<Texture2D>("MapElementsTextures/map"));
             MapFactory.LoadMapObjectsFromTextFile(map, MainClass.MapCoordinates, this.Content);
 
             mapPosition = new Vector2(0, 0);
@@ -107,7 +111,7 @@ namespace AlliedTionOOP.Engine
 
         protected override void Update(GameTime gameTime)
         {
-            if (player.IsAlive)
+            if (player.IsAlive && map.MapCreatures.Any(cr => cr is ExamBoss))
             {
                 //TODO: Player gets stuck with objects in some pixels?
                 CheckForPlayerMovementInput();
@@ -123,56 +127,38 @@ namespace AlliedTionOOP.Engine
                     Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
                     player.AddItemToInventory(collidedItem);
 
-                    this.map.RemoveMapItemByHashCode(map, hashcodeOfCollidedItem);
+                    this.map.RemoveMapItemByHashCode(hashcodeOfCollidedItem);
 
                     new Thread(() => getItemSound.Play()).Start();
                 }
 
                 #endregion
 
-                //TODO: Create manual attack with shortcuts
+                closestCreature = DistanceCalculator.GetClosestCreature(map, player, mapPosition);
 
-                #region CheckForCollisionWithEnemy
-
-                int hashcodeOfCollidedEnemy;
-                bool hasCollisionWithEnemy = CollisionDetector.HasCollisionWithEnemy(player, map, mapPosition,
-                    out hashcodeOfCollidedEnemy);
-
-                if (hasCollisionWithEnemy)
-                {
-                    Creature collidedEnemy = map.MapCreatures.Single(x => x.GetHashCode() == hashcodeOfCollidedEnemy);
-                    player.Attack(collidedEnemy);
-
-                    this.map.RemoveEnemyByHashCode(map, hashcodeOfCollidedEnemy);
-
-                    new Thread(() => killEnemy.Play()).Start();
-                }
-
-                #endregion
+                CheckForPlayerAttack();
 
                 CheckForItemShortcutPressed();
+            }
 
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    base.Exit();
-                }
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                base.Exit();
             }
 
             base.Update(gameTime);
         }
+
+
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Gray);
             spriteBatch.Begin();
 
-            map.Draw(spriteBatch, mapPosition); // draw map with all its elements
+            map.Draw(spriteBatch, mapPosition, Content); // draw map with all its elements
 
-            foreach (var mapCreature in map.MapCreatures)
-            {
-                StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, Content, mapPosition);
-                StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, Content, mapPosition);
-            }
+            Target.DrawTarget(closestCreature, spriteBatch, Content, mapPosition);
 
             spriteBatch.Draw(player.Image, new Vector2(player.TopLeftX, player.TopLeftY)); // draw player
 
@@ -181,6 +167,11 @@ namespace AlliedTionOOP.Engine
             StatBar.DrawExperienceBar(player, 16, spriteBatch, Content, Vector2.Zero);
 
             InventoryBar.DrawInventory(player, spriteBatch, Content);
+
+            if (!player.IsAlive || !map.MapCreatures.Any(cr => cr is ExamBoss))
+            {
+                spriteBatch.Draw(Content.Load<Texture2D>("MapElementsTextures/end"), Vector2.Zero);
+            }
 
             ////draw some text
             //spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
@@ -216,7 +207,7 @@ namespace AlliedTionOOP.Engine
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 if (player.TopLeftX < MainClass.WindowWidth / 2
-                    || mapPosition.X + map.Image.Width < MainClass.WindowWidth)
+                    || mapPosition.X + map.Background.Width < MainClass.WindowWidth)
                 {
                     if (player.TopLeftX < MainClass.WindowWidth - player.Image.Width
                       && !CollisionDetector.HasCollisionWithObject(player, (player.TopLeftX + player.Speed.X), player.TopLeftY, map, mapPosition))
@@ -233,7 +224,7 @@ namespace AlliedTionOOP.Engine
             if (Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.A))
             {
                 if (player.TopLeftX >= MainClass.WindowWidth / 2
-                    || mapPosition.X >= map.Image.Bounds.Left)
+                    || mapPosition.X >= map.Background.Bounds.Left)
                 {
                     if (player.TopLeftX > 0
                         && !CollisionDetector.HasCollisionWithObject(player, (int)(player.TopLeftX - player.Speed.X), (int)player.TopLeftY, map, mapPosition))
@@ -250,7 +241,7 @@ namespace AlliedTionOOP.Engine
             if (Keyboard.GetState().IsKeyDown(Keys.Down) || Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 if (player.TopLeftY < MainClass.WindowHeight / 2
-                    || mapPosition.Y + map.Image.Height < MainClass.WindowHeight)
+                    || mapPosition.Y + map.Background.Height < MainClass.WindowHeight)
                 {
                     if (player.TopLeftY < MainClass.WindowHeight - player.Image.Height
                         && !CollisionDetector.HasCollisionWithObject(player, (player.TopLeftX), (player.TopLeftY + player.Speed.Y), map, mapPosition))
@@ -267,7 +258,7 @@ namespace AlliedTionOOP.Engine
             if (Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.W))
             {
                 if (player.TopLeftY >= MainClass.WindowHeight / 2
-                    || mapPosition.Y >= map.Image.Bounds.Top)
+                    || mapPosition.Y >= map.Background.Bounds.Top)
                 {
                     if (player.TopLeftY > 0
                         && !CollisionDetector.HasCollisionWithObject(player, (int)(player.TopLeftX), (int)(player.TopLeftY - player.Speed.Y), map, mapPosition))
@@ -368,7 +359,37 @@ namespace AlliedTionOOP.Engine
             }
         }
 
+        private void CheckForPlayerAttack()
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.R))
+            {
+                isKeyDownAttack = true;
+            }
 
+            if (Keyboard.GetState().IsKeyUp(Keys.R) && isKeyDownAttack)
+            {
+                if (closestCreature != null &&
+                    DistanceCalculator.GetDistanceBetweenObjects(player, closestCreature, mapPosition) < 80)
+                {
+                    player.Attack(closestCreature);
+
+                    CheckIfCreatureIsAlive(closestCreature);
+                }
+
+                isKeyDownAttack = false;
+            }
+        }
+
+        private void CheckIfCreatureIsAlive(Creature closestCreature)
+        {
+            if (!closestCreature.IsAlive)
+            {
+                new Thread(() => killEnemy.Play()).Start();
+
+                int hashcodeOfKilledCreature = closestCreature.GetHashCode();
+                map.RemoveMapCreatureByHashCode(hashcodeOfKilledCreature);
+            }
+        }
     }
 }
 

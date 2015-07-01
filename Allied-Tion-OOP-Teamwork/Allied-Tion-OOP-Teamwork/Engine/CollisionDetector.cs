@@ -8,15 +8,17 @@ namespace AlliedTionOOP.Engine
     {
         public static bool HasCollisionWithObject(Player player, int targetPositionX, int targetPositionY, Map map, Vector2 mapPosition)
         {
-            Rectangle sad = new Rectangle(targetPositionX, targetPositionY, player.Image.Width,
+            Rectangle playerRect = new Rectangle(targetPositionX, targetPositionY, player.Image.Width,
                 player.Image.Height);
 
             foreach(var mapElement in map.MapElements)
             {
-                bool intersects =
-                    sad.Intersects(new Rectangle(mapElement.TopLeftX + (int)mapPosition.X, mapElement.TopLeftY + (int)mapPosition.Y, mapElement.Image.Width,
-                        mapElement.Image.Height));
-                if (intersects)
+                var mapElementRect = new Rectangle(mapElement.TopLeftX + (int) mapPosition.X,
+                                                   mapElement.TopLeftY + (int) mapPosition.Y, 
+                                                   mapElement.Image.Width,
+                                                   mapElement.Image.Height);
+
+                if (playerRect.Intersects(mapElementRect))
                 {
                     return true;
                 }
@@ -27,14 +29,16 @@ namespace AlliedTionOOP.Engine
 
         public static bool HasCollisionWithItem(Player player, Map map, Vector2 mapPosition, out int hashcodeOfCollidedItem)
         {
-            Rectangle playerRectangle = new Rectangle(player.TopLeftX, player.TopLeftY, player.Image.Width, player.Image.Height);
+            Rectangle playerRect = new Rectangle(player.TopLeftX, player.TopLeftY, player.Image.Width, player.Image.Height);
 
             foreach (var mapItem in map.MapItems)
             {
-                bool intersects =
-                    playerRectangle.Intersects(new Rectangle(mapItem.TopLeftX + (int)mapPosition.X, mapItem.TopLeftY + (int)mapPosition.Y, mapItem.Image.Width,
-                        mapItem.Image.Height));
-                if (intersects)
+                var mapItemRect = new Rectangle(mapItem.TopLeftX + (int) mapPosition.X,
+                                                mapItem.TopLeftY + (int) mapPosition.Y, 
+                                                mapItem.Image.Width,
+                                                mapItem.Image.Height);
+
+                if (playerRect.Intersects(mapItemRect))
                 {
                     hashcodeOfCollidedItem = mapItem.GetHashCode();
                     return true;
@@ -47,12 +51,12 @@ namespace AlliedTionOOP.Engine
 
         public static bool HasCollisionWithEnemy(Player player, Map map, Vector2 mapPosition, out int hashcodeOfCollidedEnemy)
         {
-            Rectangle playerRectangle = new Rectangle(player.TopLeftX, player.TopLeftY, player.Image.Width, player.Image.Height);
+            Rectangle playerRect = new Rectangle(player.TopLeftX, player.TopLeftY, player.Image.Width, player.Image.Height);
 
             foreach (var creature in map.MapCreatures)
             {
                 bool intersects =
-                    playerRectangle.Intersects(new Rectangle(creature.TopLeftX + (int)mapPosition.X, creature.TopLeftY + (int)mapPosition.Y, creature.Image.Width,
+                    playerRect.Intersects(new Rectangle(creature.TopLeftX + (int)mapPosition.X, creature.TopLeftY + (int)mapPosition.Y, creature.Image.Width,
                         creature.Image.Height));
                 if (intersects)
                 {

@@ -71,13 +71,13 @@ namespace AlliedTionOOP.MapNamespace
             switch (command)
             {
                 case "bug":
-                    Map.AddCreature(new Bug(positionX,positionY));
+                    Map.AddCreature(new Bug(positionX, positionY));
                     break;
                 case "exception":
                     Map.AddCreature(new Exception(positionX, positionY));
                     break;
                 case "exam":
-                    Map.AddCreature(new ExamBoss(positionX,positionY));
+                    Map.AddCreature(new ExamBoss(positionX, positionY));
                     break;
                 case "cpu":
                     Map.AddItem(new ProcessorUpgrade(positionX, positionY));
@@ -129,11 +129,6 @@ namespace AlliedTionOOP.MapNamespace
                     break;
             }
             #endregion
-        }
-
-        public static void LoadMapImage(Map map, Texture2D mapImage)
-        {
-            map.Image = mapImage;
         }
     }
 }

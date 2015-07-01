@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AlliedTionOOP.GUI;
 using AlliedTionOOP.Objects;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace AlliedTionOOP.MapNamespace
@@ -23,7 +25,12 @@ namespace AlliedTionOOP.MapNamespace
 
         public List<Item> MapItems { get; private set; }
 
-        public Texture2D Image { get; set; }
+        public Texture2D Background { get; set; }
+
+        public void SetMapBackground(Texture2D mapBackground)
+        {
+            this.Background = mapBackground;
+        }
 
         public void AddElement(MapElement mapElementToAdd)
         {
@@ -40,9 +47,9 @@ namespace AlliedTionOOP.MapNamespace
             this.MapItems.Add(itemToAdd);
         }
 
-        public void Draw(SpriteBatch spriteBatch, Vector2 mapPosition)
+        public void Draw(SpriteBatch spriteBatch, Vector2 mapPosition, ContentManager content)
         {
-            spriteBatch.Draw(this.Image, mapPosition);
+            spriteBatch.Draw(this.Background, mapPosition);
 
             foreach (var mapElement in this.MapElements)
             {
@@ -51,7 +58,12 @@ namespace AlliedTionOOP.MapNamespace
 
             foreach (var mapCreature in this.MapCreatures)
             {
-                spriteBatch.Draw(mapCreature.Image, new Vector2(mapCreature.TopLeftX + mapPosition.X, mapCreature.TopLeftY + mapPosition.Y));
+                if (mapCreature.IsAlive)
+                {
+                    spriteBatch.Draw(mapCreature.Image, new Vector2(mapCreature.TopLeftX + mapPosition.X, mapCreature.TopLeftY + mapPosition.Y));
+                    StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, content, mapPosition);
+                    StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, content, mapPosition);
+                }
             }
 
             foreach (var mapItem in this.MapItems)
@@ -60,15 +72,14 @@ namespace AlliedTionOOP.MapNamespace
             }
         }
 
-
-        public void RemoveMapItemByHashCode(Map map, int hashCodeOfItemToRemove)
+        public void RemoveMapCreatureByHashCode(int hashCodeOfCreatureToRemove)
         {
-            map.MapItems.Remove(map.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
+            this.MapCreatures.Remove(this.MapCreatures.Single(cr => cr.GetHashCode() == hashCodeOfCreatureToRemove));
         }
 
-        public void RemoveEnemyByHashCode(Map map, int hashCodeOfEnemyToRemove)
+        public void RemoveMapItemByHashCode(int hashCodeOfItemToRemove)
         {
-            map.MapCreatures.Remove(map.MapCreatures.Single(en => en.GetHashCode() == hashCodeOfEnemyToRemove));
+            this.MapItems.Remove(this.MapItems.Single(el => el.GetHashCode() == hashCodeOfItemToRemove));
         }
     }
 }

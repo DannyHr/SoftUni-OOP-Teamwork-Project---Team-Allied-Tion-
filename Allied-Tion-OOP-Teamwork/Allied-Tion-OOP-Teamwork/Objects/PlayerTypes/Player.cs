@@ -53,14 +53,11 @@ namespace AlliedTionOOP.Objects.PlayerTypes
 
         public void LevelUp()
         {
-            if (this.Experience >= this.levelUpExperience)
-            {
                 this.CurrentLevel++;
                 this.levelUpExperience += 150;
                 this.Experience -= this.CurrentLevel*150;
                 this.TotalFocus += 10;
                 this.TotalEnergy += 10;
-            }
         }
 
         public void GetFocus(Beer beer)
@@ -109,16 +106,23 @@ namespace AlliedTionOOP.Objects.PlayerTypes
         {
             int startFocus = this.CurrentFocus;
             int startEnergy = this.CurrentEnergy;
+
             this.CurrentEnergy -= enemy.CurrentEnergy;
             this.CurrentFocus -= enemy.CurrentFocus;
             enemy.CurrentFocus -= startFocus;
             enemy.CurrentEnergy -= startEnergy;
+
             if (enemy.CurrentFocus <= 0 || enemy.CurrentEnergy <= 0)
             {
-                this.IsAlive = false;
+                enemy.IsAlive = false;
             }
+    
             this.Experience += enemy.ExperienceToGive;
-            LevelUp();
+
+            if (this.Experience >= this.levelUpExperience)
+            {
+                LevelUp();
+            }
         }
 
         //private List<Items.Item> inventory;
