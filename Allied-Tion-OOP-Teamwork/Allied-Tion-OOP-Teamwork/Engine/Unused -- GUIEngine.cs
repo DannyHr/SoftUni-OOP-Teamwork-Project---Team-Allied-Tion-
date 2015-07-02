@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace AlliedTionOOP.Engine
 {
-    public class GUIEngine : Game
+    public class Unused__GUIEngine
     {
         protected GraphicsDeviceManager graphics;
         protected SpriteBatch spriteBatch;
@@ -15,13 +15,13 @@ namespace AlliedTionOOP.Engine
 
         private MainMenu mainMenu;
 
-        public GUIEngine()
+        public Unused__GUIEngine()
         {
             this.graphics = new GraphicsDeviceManager(this);
             this.Content.RootDirectory = "Content";
         }
 
-        protected override void Initialize()
+        protected void Initialize()
         {
             //window settings
             this.graphics.PreferredBackBufferWidth = MainClass.WindowWidth;
@@ -40,7 +40,7 @@ namespace AlliedTionOOP.Engine
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        protected void LoadContent()
         {
             this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
@@ -62,7 +62,7 @@ namespace AlliedTionOOP.Engine
             mainMenu.Buttons.Add(quitButton);
         }
 
-        protected override void Update(GameTime gameTime)
+        protected void Update(GameTime gameTime)
         {
             foreach (var button in mainMenu.Buttons)
             {
@@ -75,7 +75,7 @@ namespace AlliedTionOOP.Engine
             base.Update(gameTime);
         }
 
-        protected override void Draw(GameTime gameTime)
+        protected void Draw(GameTime gameTime)
         {
             this.GraphicsDevice.Clear(Color.CornflowerBlue);
 

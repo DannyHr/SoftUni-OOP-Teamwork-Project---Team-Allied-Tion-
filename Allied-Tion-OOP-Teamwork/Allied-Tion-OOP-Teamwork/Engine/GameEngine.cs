@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using AlliedTionOOP.GUI;
 using AlliedTionOOP.GUI.IngameGraphics;
+using AlliedTionOOP.GUI.Menus;
 using AlliedTionOOP.MapNamespace;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
@@ -33,12 +34,19 @@ namespace AlliedTionOOP.Engine
         protected static Texture2D BeerImage;
         protected static Texture2D RedBullImage;
 
+        private Button playButton;
+        private Button howToPlayButton;
+        private Button aboutButton;
+        private Button quitButton;
+
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
         //private SpriteFont spriteFont;
         //private string noItemMessage = "";
         //private SpriteFont noItemMessageFont;
+
+        private MainMenu mainMenu;
 
         private Sound getItemSound;
         private Sound musicTheme;
@@ -53,6 +61,10 @@ namespace AlliedTionOOP.Engine
         private bool isKeyDownBeer = false;
         private bool isKeyDownRedBull = false;
         private bool isKeyDownAttack = false;
+
+        private bool isKeyDownEscape = false;
+
+        private bool isInMainMenu = false;
 
         public GameEngine()
         {
@@ -71,10 +83,12 @@ namespace AlliedTionOOP.Engine
             this.Window.Position = new Point((MainClass.CurrentScreenWidth - MainClass.WindowWidth) / 2,
                 (MainClass.CurrentScreenHeight - MainClass.WindowHeight) / 2);
 
+            this.IsMouseVisible = true;
+
             //this.graphics.ToggleFullScreen();
             //this.Window.IsBorderless = true;
 
-            LoadImages();
+            this.LoadImages();
 
             // TODO: Add your initialization logic here
 
@@ -83,7 +97,7 @@ namespace AlliedTionOOP.Engine
             this.killEnemy = new Sound(MainClass.KillEnemy);
 
             this.map = new Map();
-
+            
             this.musicTheme.Play(true);
 
             base.Initialize();
@@ -93,57 +107,99 @@ namespace AlliedTionOOP.Engine
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            playButton = new Button("play", Content.Load<Texture2D>("GUI/MainMenuTextures/play"), 700, 50);
+            howToPlayButton = new Button("howToPlay", Content.Load<Texture2D>("GUI/MainMenuTextures/howToPlay"), 700, 200);
+            aboutButton = new Button("about", Content.Load<Texture2D>("GUI/MainMenuTextures/about"), 700, 350);
+            quitButton = new Button("quit", Content.Load<Texture2D>("GUI/MainMenuTextures/quit"), 700, 500);
+
+            mainMenu = new MainMenu(Content.Load<Texture2D>("GUI/MainMenuTextures/background"));
+
+            playButton.Click += OnClick;
+            howToPlayButton.Click += OnClick;
+            aboutButton.Click += OnClick;
+            quitButton.Click += OnClick;
+
+            mainMenu.Buttons.Add(playButton);
+            mainMenu.Buttons.Add(howToPlayButton);
+            mainMenu.Buttons.Add(aboutButton);
+            mainMenu.Buttons.Add(quitButton);
+
             map.SetMapBackground(Content.Load<Texture2D>("MapElementsTextures/map"));
             MapFactory.LoadMapObjectsFromTextFile(map, MainClass.MapCoordinates, this.Content);
 
             mapPosition = new Vector2(0, 0);
 
-            //this.spriteFont = Content.Load<SpriteFont>("SpriteFont");
-            //this.noItemMessageFont = Content.Load<SpriteFont>("Fonts/NoItemFont");
-
             player = new NormalStudent();
-        }
-
-        protected override void UnloadContent()
-        {
-            base.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (player.IsAlive && map.MapCreatures.Any(cr => cr is ExamBoss))
+            if (isInMainMenu)
             {
-                //TODO: Player gets stuck with objects in some pixels?
-                CheckForPlayerMovementInput();
-
-                #region CheckForCollisionWithItem
-
-                int hashcodeOfCollidedItem;
-                bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition,
-                    out hashcodeOfCollidedItem);
-
-                if (hasCollisionWithItem)
+                foreach (var button in mainMenu.Buttons)
                 {
-                    Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
-                    player.AddItemToInventory(collidedItem);
-
-                    this.map.RemoveMapItemByHashCode(hashcodeOfCollidedItem);
-
-                    new Thread(() => getItemSound.Play()).Start();
+                    if (button.ButtonRect.Contains(new Point(Mouse.GetState().X, Mouse.GetState().Y)) &&
+                        Mouse.GetState().LeftButton == ButtonState.Pressed)
+                    {
+                        button.FireClick();
+                    }
                 }
 
-                #endregion
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    isKeyDownEscape = true;
+                }
 
-                closestCreature = DistanceCalculator.GetClosestCreature(map, player, mapPosition);
+                if (Keyboard.GetState().IsKeyUp(Keys.Escape) && isKeyDownEscape)
+                {
+                    isInMainMenu = false;
 
-                CheckForPlayerAttack();
-
-                CheckForItemShortcutPressed();
+                    isKeyDownEscape = false;
+                }
             }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            else
             {
-                this.Exit();
+                if (player.IsAlive && map.MapCreatures.Any(cr => cr is ExamBoss))
+                {
+                    //TODO: Player gets stuck with objects in some pixels?
+                    CheckForPlayerMovementInput();
+
+                    #region CheckForCollisionWithItem
+
+                    int hashcodeOfCollidedItem;
+                    bool hasCollisionWithItem = CollisionDetector.HasCollisionWithItem(player, map, mapPosition,
+                        out hashcodeOfCollidedItem);
+
+                    if (hasCollisionWithItem)
+                    {
+                        Item collidedItem = map.MapItems.Single(x => x.GetHashCode() == hashcodeOfCollidedItem);
+                        player.AddItemToInventory(collidedItem);
+
+                        this.map.RemoveMapItemByHashCode(hashcodeOfCollidedItem);
+
+                        new Thread(() => getItemSound.Play()).Start();
+                    }
+
+                    #endregion
+
+                    closestCreature = DistanceCalculator.GetClosestCreature(map, player, mapPosition);
+
+                    CheckForPlayerAttack();
+
+                    CheckForItemShortcutPressed();
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    isKeyDownEscape = true;
+                }
+
+                if (Keyboard.GetState().IsKeyUp(Keys.Escape) && isKeyDownEscape)
+                {
+                    isInMainMenu = true;
+
+                    isKeyDownEscape = false;
+                }
             }
 
             base.Update(gameTime);
@@ -151,34 +207,41 @@ namespace AlliedTionOOP.Engine
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Gray);
-            spriteBatch.Begin();
-
-            DrawEnvironment.DrawMap(map, mapPosition, spriteBatch, Content); // draw map with all its elements
-
-            Target.DrawTarget(closestCreature, spriteBatch, Content, mapPosition);
-
-            DrawEnvironment.DrawPlayer(player, spriteBatch, Content); // draw player with his stat bars
-
-            InventoryBar.DrawInventory(player, spriteBatch, Content);
-            InventoryBar.DrawPlayerLevel(player, spriteBatch, Content);
-
-            if (!player.IsAlive)
+            if (isInMainMenu)
             {
-                GameOver.DrawGameOverLose(spriteBatch, Content);
-            }
+                GraphicsDevice.Clear(Color.Gray);
+                spriteBatch.Begin();
 
-            if (!map.MapCreatures.Any(cr => cr is ExamBoss))
+                this.mainMenu.Draw(spriteBatch,Content);
+
+                spriteBatch.End();
+            }
+            else if(!isInMainMenu)
             {
-                GameOver.DrawGameOverWin(spriteBatch, Content);
+                GraphicsDevice.Clear(Color.Gray);
+                spriteBatch.Begin();
+
+                DrawEnvironment.DrawMap(map, mapPosition, spriteBatch, Content); // draw map with all its elements
+
+                Target.DrawTarget(closestCreature, spriteBatch, Content, mapPosition);
+
+                DrawEnvironment.DrawPlayer(player, spriteBatch, Content); // draw player with his stat bars
+
+                InventoryBar.DrawInventory(player, spriteBatch, Content);
+                InventoryBar.DrawPlayerLevel(player, spriteBatch, Content);
+
+                if (!player.IsAlive)
+                {
+                    GameOver.DrawGameOverLose(spriteBatch, Content);
+                }
+
+                if (!map.MapCreatures.Any(cr => cr is ExamBoss))
+                {
+                    GameOver.DrawGameOverWin(spriteBatch, Content);
+                }
+
+                spriteBatch.End();
             }
-
-            ////draw some text
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player focus: " + player.CurrentFocus), new Vector2(100, 20), Color.WhiteSmoke);
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Player is alive: " + player.IsAlive), new Vector2(100, 35), Color.WhiteSmoke);
-            //spriteBatch.DrawString(spriteFont, new StringBuilder("Intersects: " + player.TotalFocus), new Vector2(100, 20), Color.WhiteSmoke);
-
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
@@ -389,6 +452,26 @@ namespace AlliedTionOOP.Engine
 
                 int hashcodeOfKilledCreature = creature.GetHashCode();
                 map.RemoveMapCreatureByHashCode(hashcodeOfKilledCreature);
+            }
+        }
+
+        protected void OnClick(object buttonClicked, EventArgs args)
+        {
+            Button currentClickedButton = buttonClicked as Button;
+            switch (currentClickedButton.ButtonName)
+            {
+                case "play":
+                    isInMainMenu = false;
+                    break;
+                case "howToPlay":
+                    currentClickedButton.ButtonTopLeftY++;
+                    break;
+                case "about":
+                    currentClickedButton.ButtonTopLeftX--;
+                    break;
+                case "quit":
+                    this.Exit();
+                    break;
             }
         }
     }

@@ -53,7 +53,6 @@
     <ApplicationIcon>Content\oop-teamwork-icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Engine\GUIEngine.cs" />
     <Compile Include="GUI\IngameGraphics\DrawEnvironment.cs" />
     <Compile Include="GUI\IngameGraphics\GameOver.cs" />
     <Compile Include="GUI\Menus\Button.cs" />
