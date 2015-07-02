@@ -24,6 +24,19 @@ namespace AlliedTionOOP.Physics
                 }
             }
 
+            foreach (var mapCreature in map.MapCreatures)
+            {
+                var mapCreatureRect = new Rectangle(mapCreature.TopLeftX + (int)mapPosition.X,
+                                                   mapCreature.TopLeftY + (int)mapPosition.Y,
+                                                   mapCreature.Image.Width,
+                                                   mapCreature.Image.Height);
+
+                if (playerRect.Intersects(mapCreatureRect))
+                {
+                    return true;
+                }
+            }
+
             return false;
         }
 

@@ -163,9 +163,14 @@ namespace AlliedTionOOP.Engine
             InventoryBar.DrawInventory(player, spriteBatch, Content);
             InventoryBar.DrawPlayerLevel(player, spriteBatch, Content);
 
-            if (!player.IsAlive || !map.MapCreatures.Any(cr => cr is ExamBoss))
+            if (!player.IsAlive)
             {
-                spriteBatch.Draw(Content.Load<Texture2D>("MapElementsTextures/end"), Vector2.Zero);
+                GameOver.DrawGameOverLose(spriteBatch, Content);
+            }
+
+            if (!map.MapCreatures.Any(cr => cr is ExamBoss))
+            {
+                GameOver.DrawGameOverWin(spriteBatch, Content);
             }
 
             ////draw some text

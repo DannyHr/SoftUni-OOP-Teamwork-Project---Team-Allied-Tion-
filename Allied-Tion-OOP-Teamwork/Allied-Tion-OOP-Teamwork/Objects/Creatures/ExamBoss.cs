@@ -2,8 +2,8 @@ namespace AlliedTionOOP.Objects.Creatures
 {
     public class ExamBoss : Creature
     {
-        private const int BossEnergy = 30;
-        private const int BossFocus = 30;
+        private const int BossEnergy = 90;
+        private const int BossFocus = 90;
         private const int BossExpToGive = 80;
 
         public ExamBoss(int topLeftX, int topLeftY)

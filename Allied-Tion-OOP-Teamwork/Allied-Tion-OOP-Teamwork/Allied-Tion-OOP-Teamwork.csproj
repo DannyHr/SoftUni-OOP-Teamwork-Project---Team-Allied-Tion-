@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Engine\GUIEngine.cs" />
     <Compile Include="GUI\IngameGraphics\DrawEnvironment.cs" />
+    <Compile Include="GUI\IngameGraphics\GameOver.cs" />
     <Compile Include="GUI\Menus\Button.cs" />
     <Compile Include="GUI\Menus\MainMenu.cs" />
     <Compile Include="Physics\DistanceCalculator.cs" />
