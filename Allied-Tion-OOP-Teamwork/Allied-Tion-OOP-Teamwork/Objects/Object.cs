@@ -2,7 +2,7 @@
 
 namespace AlliedTionOOP.Objects
 {
-    public abstract class Object : Engine.Engine
+    public abstract class Object : Engine.GameEngine
     {
         protected Object(Texture2D image, int topLeftX, int topLeftY)
         {

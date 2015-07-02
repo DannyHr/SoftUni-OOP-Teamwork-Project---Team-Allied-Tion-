@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Allied-Tion-Monogame-Test")]
-[assembly: AssemblyProduct("Allied-Tion-Monogame-Test")]
+[assembly: AssemblyTitle("Magic University")]
+[assembly: AssemblyProduct("Magic University")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Allied Tion Team")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

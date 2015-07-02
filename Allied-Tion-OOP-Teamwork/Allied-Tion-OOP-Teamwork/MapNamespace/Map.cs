@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AlliedTionOOP.GUI;
+using AlliedTionOOP.GUI.IngameGraphics;
 using AlliedTionOOP.Objects;
 using AlliedTionOOP.Objects.Creatures;
 using AlliedTionOOP.Objects.Items;
@@ -45,31 +46,6 @@ namespace AlliedTionOOP.MapNamespace
         public void AddItem(Item itemToAdd)
         {
             this.MapItems.Add(itemToAdd);
-        }
-
-        public void Draw(SpriteBatch spriteBatch, Vector2 mapPosition, ContentManager content)
-        {
-            spriteBatch.Draw(this.Background, mapPosition);
-
-            foreach (var mapElement in this.MapElements)
-            {
-                spriteBatch.Draw(mapElement.Image, new Vector2(mapElement.TopLeftX + mapPosition.X, mapElement.TopLeftY + mapPosition.Y));
-            }
-
-            foreach (var mapCreature in this.MapCreatures)
-            {
-                if (mapCreature.IsAlive)
-                {
-                    spriteBatch.Draw(mapCreature.Image, new Vector2(mapCreature.TopLeftX + mapPosition.X, mapCreature.TopLeftY + mapPosition.Y));
-                    StatBar.DrawEnergyBar(mapCreature, 10, spriteBatch, content, mapPosition);
-                    StatBar.DrawFocusBar(mapCreature, 16, spriteBatch, content, mapPosition);
-                }
-            }
-
-            foreach (var mapItem in this.MapItems)
-            {
-                spriteBatch.Draw(mapItem.Image, new Vector2(mapItem.TopLeftX + mapPosition.X, mapItem.TopLeftY + mapPosition.Y));
-            }
         }
 
         public void RemoveMapCreatureByHashCode(int hashCodeOfCreatureToRemove)
