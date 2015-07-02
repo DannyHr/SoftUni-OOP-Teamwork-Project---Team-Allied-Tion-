@@ -90,6 +90,8 @@ namespace AlliedTionOOP.Engine
 
             this.LoadImages();
 
+            this.mainMenu = new MainMenu(Content.Load<Texture2D>("GUI/MainMenuTextures/background"));
+
             // TODO: Add your initialization logic here
 
             this.getItemSound = new Sound(MainClass.GotItem);
@@ -105,36 +107,34 @@ namespace AlliedTionOOP.Engine
 
         protected override void LoadContent()
         {
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            this.spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            playButton = new Button("play", Content.Load<Texture2D>("GUI/MainMenuTextures/play"), 700, 50);
-            howToPlayButton = new Button("howToPlay", Content.Load<Texture2D>("GUI/MainMenuTextures/howToPlay"), 700, 200);
-            aboutButton = new Button("about", Content.Load<Texture2D>("GUI/MainMenuTextures/about"), 700, 350);
-            quitButton = new Button("quit", Content.Load<Texture2D>("GUI/MainMenuTextures/quit"), 700, 500);
+            this.playButton = new Button("play", Content.Load<Texture2D>("GUI/MainMenuTextures/play"), 700, 50);
+            this.howToPlayButton = new Button("howToPlay", Content.Load<Texture2D>("GUI/MainMenuTextures/howToPlay"), 700, 200);
+            this.aboutButton = new Button("about", Content.Load<Texture2D>("GUI/MainMenuTextures/about"), 700, 350);
+            this.quitButton = new Button("quit", Content.Load<Texture2D>("GUI/MainMenuTextures/quit"), 700, 500);
 
-            mainMenu = new MainMenu(Content.Load<Texture2D>("GUI/MainMenuTextures/background"));
+            this.playButton.Click += OnClick;
+            this.howToPlayButton.Click += OnClick;
+            this.aboutButton.Click += OnClick;
+            this.quitButton.Click += OnClick;
 
-            playButton.Click += OnClick;
-            howToPlayButton.Click += OnClick;
-            aboutButton.Click += OnClick;
-            quitButton.Click += OnClick;
+            this.mainMenu.Buttons.Add(playButton);
+            this.mainMenu.Buttons.Add(howToPlayButton);
+            this.mainMenu.Buttons.Add(aboutButton);
+            this.mainMenu.Buttons.Add(quitButton);
 
-            mainMenu.Buttons.Add(playButton);
-            mainMenu.Buttons.Add(howToPlayButton);
-            mainMenu.Buttons.Add(aboutButton);
-            mainMenu.Buttons.Add(quitButton);
-
-            map.SetMapBackground(Content.Load<Texture2D>("MapElementsTextures/map"));
+            this.map.SetMapBackground(Content.Load<Texture2D>("MapElementsTextures/map"));
             MapFactory.LoadMapObjectsFromTextFile(map, MainClass.MapCoordinates, this.Content);
 
-            mapPosition = new Vector2(0, 0);
+            this.mapPosition = new Vector2(0, 0);
 
-            player = new NormalStudent();
+            this.player = new NormalStudent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (isInMainMenu)
+            if (this.isInMainMenu)
             {
                 foreach (var button in mainMenu.Buttons)
                 {
@@ -162,7 +162,7 @@ namespace AlliedTionOOP.Engine
                 if (player.IsAlive && map.MapCreatures.Any(cr => cr is ExamBoss))
                 {
                     //TODO: Player gets stuck with objects in some pixels?
-                    CheckForPlayerMovementInput();
+                    this.CheckForPlayerMovementInput();
 
                     #region CheckForCollisionWithItem
 
@@ -182,23 +182,23 @@ namespace AlliedTionOOP.Engine
 
                     #endregion
 
-                    closestCreature = DistanceCalculator.GetClosestCreature(map, player, mapPosition);
-
-                    CheckForPlayerAttack();
-
-                    CheckForItemShortcutPressed();
+                    this.closestCreature = DistanceCalculator.GetClosestCreature(map, player, mapPosition);
+                
+                    this.CheckForPlayerAttack();
+                    
+                    this.CheckForItemShortcutPressed();
                 }
 
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
-                    isKeyDownEscape = true;
+                    this.isKeyDownEscape = true;
                 }
 
                 if (Keyboard.GetState().IsKeyUp(Keys.Escape) && isKeyDownEscape)
                 {
-                    isInMainMenu = true;
+                    this.isInMainMenu = true;
 
-                    isKeyDownEscape = false;
+                    this.isKeyDownEscape = false;
                 }
             }
 
@@ -207,7 +207,7 @@ namespace AlliedTionOOP.Engine
 
         protected override void Draw(GameTime gameTime)
         {
-            if (isInMainMenu)
+            if (this.isInMainMenu)
             {
                 GraphicsDevice.Clear(Color.Gray);
                 spriteBatch.Begin();
@@ -221,23 +221,23 @@ namespace AlliedTionOOP.Engine
                 GraphicsDevice.Clear(Color.Gray);
                 spriteBatch.Begin();
 
-                DrawEnvironment.DrawMap(map, mapPosition, spriteBatch, Content); // draw map with all its elements
+                DrawEnvironment.DrawMap(this.map, this.mapPosition, this.spriteBatch, this.Content); // draw map with all its elements
 
-                Target.DrawTarget(closestCreature, spriteBatch, Content, mapPosition);
+                Target.DrawTarget(this.closestCreature, this.spriteBatch, this.Content, this.mapPosition);
 
-                DrawEnvironment.DrawPlayer(player, spriteBatch, Content); // draw player with his stat bars
+                DrawEnvironment.DrawPlayer(this.player, this.spriteBatch, this.Content); // draw player with his stat bars
 
-                InventoryBar.DrawInventory(player, spriteBatch, Content);
-                InventoryBar.DrawPlayerLevel(player, spriteBatch, Content);
+                InventoryBar.DrawInventory(this.player, this.spriteBatch, this.Content);
+                InventoryBar.DrawPlayerLevel(this.player, this.spriteBatch, this.Content);
 
-                if (!player.IsAlive)
+                if (!this.player.IsAlive)
                 {
-                    GameOver.DrawGameOverLose(spriteBatch, Content);
+                    GameOver.DrawGameOverLose(this.spriteBatch, this.Content);
                 }
 
-                if (!map.MapCreatures.Any(cr => cr is ExamBoss))
+                if (!this.map.MapCreatures.Any(cr => cr is ExamBoss))
                 {
-                    GameOver.DrawGameOverWin(spriteBatch, Content);
+                    GameOver.DrawGameOverWin(this.spriteBatch, this.Content);
                 }
 
                 spriteBatch.End();
@@ -248,21 +248,21 @@ namespace AlliedTionOOP.Engine
 
         private void LoadImages()
         {
-            BugImage = Content.Load<Texture2D>("CharacterTextures/bug");
-            ExceptionImage = Content.Load<Texture2D>("CharacterTextures/exception");
-            ExamBossImage = Content.Load<Texture2D>("CharacterTextures/exam");
+            BugImage = this.Content.Load<Texture2D>("CharacterTextures/bug");
+            ExceptionImage = this.Content.Load<Texture2D>("CharacterTextures/exception");
+            ExamBossImage = this.Content.Load<Texture2D>("CharacterTextures/exam");
 
-            PlayerNerdSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
-            PlayerNormalSkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
-            PlayerPartySkin = Content.Load<Texture2D>("CharacterTextures/wizzard");
+            PlayerNerdSkin = this.Content.Load<Texture2D>("CharacterTextures/wizzard");
+            PlayerNormalSkin = this.Content.Load<Texture2D>("CharacterTextures/wizzard");
+            PlayerPartySkin = this.Content.Load<Texture2D>("CharacterTextures/wizzard");
 
-            ProcessorUpgradeImage = Content.Load<Texture2D>("ItemsTextures/cpu-x35");
-            MemoryUpgradeImage = Content.Load<Texture2D>("ItemsTextures/ram");
-            DiskUpgradeImage = Content.Load<Texture2D>("ItemsTextures/hdd");
-            NakovBookImage = Content.Load<Texture2D>("ItemsTextures/book");
-            ResharperImage = Content.Load<Texture2D>("ItemsTextures/RSharper");
-            BeerImage = Content.Load<Texture2D>("ItemsTextures/beerx32");
-            RedBullImage = Content.Load<Texture2D>("ItemsTextures/redbull");
+            ProcessorUpgradeImage = this.Content.Load<Texture2D>("ItemsTextures/cpu-x35");
+            MemoryUpgradeImage = this.Content.Load<Texture2D>("ItemsTextures/ram");
+            DiskUpgradeImage = this.Content.Load<Texture2D>("ItemsTextures/hdd");
+            NakovBookImage = this.Content.Load<Texture2D>("ItemsTextures/book");
+            ResharperImage = this.Content.Load<Texture2D>("ItemsTextures/RSharper");
+            BeerImage = this.Content.Load<Texture2D>("ItemsTextures/beerx32");
+            RedBullImage = this.Content.Load<Texture2D>("ItemsTextures/redbull");
         }
 
         public void CheckForPlayerMovementInput()
@@ -340,7 +340,7 @@ namespace AlliedTionOOP.Engine
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Z))
             {
-                isKeyDownBeer = true;
+                this.isKeyDownBeer = true;
             }
 
             if (Keyboard.GetState().IsKeyUp(Keys.Z) && isKeyDownBeer)
@@ -349,10 +349,10 @@ namespace AlliedTionOOP.Engine
 
                 if (beerToUse != null)
                 {
-                    player.GetFocus(beerToUse);
+                    this.player.GetFocus(beerToUse);
                 }
 
-                isKeyDownBeer = false;
+                this.isKeyDownBeer = false;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.X))
@@ -362,62 +362,62 @@ namespace AlliedTionOOP.Engine
 
             if (Keyboard.GetState().IsKeyUp(Keys.X) && isKeyDownRedBull)
             {
-                RedBull redbullToUse = player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
+                RedBull redbullToUse = this.player.Inventory.FirstOrDefault(b => b is RedBull) as RedBull;
 
                 if (redbullToUse != null)
                 {
-                    player.GetEnergy(redbullToUse);
+                    this.player.GetEnergy(redbullToUse);
                 }
 
-                isKeyDownRedBull = false;
+                this.isKeyDownRedBull = false;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.C))
             {
-                MemoryUpgrade memoryToUse = player.Inventory.FirstOrDefault(m => m is MemoryUpgrade) as MemoryUpgrade;
+                MemoryUpgrade memoryToUse = this.player.Inventory.FirstOrDefault(m => m is MemoryUpgrade) as MemoryUpgrade;
 
                 if (memoryToUse != null)
                 {
-                    player.MemoryUpgrade(memoryToUse);
+                    this.player.MemoryUpgrade(memoryToUse);
                 }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.V))
             {
-                DiskUpgrade diskToUse = player.Inventory.FirstOrDefault(d => d is DiskUpgrade) as DiskUpgrade;
+                DiskUpgrade diskToUse = this.player.Inventory.FirstOrDefault(d => d is DiskUpgrade) as DiskUpgrade;
 
                 if (diskToUse != null)
                 {
-                    player.DiskUpgrade(diskToUse);
+                    this.player.DiskUpgrade(diskToUse);
                 }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.B))
             {
-                ProcessorUpgrade processorToUse = player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
+                ProcessorUpgrade processorToUse = this.player.Inventory.FirstOrDefault(p => p is ProcessorUpgrade) as ProcessorUpgrade;
 
                 if (processorToUse != null)
                 {
-                    player.ProcessorUpgrade(processorToUse);
+                    this.player.ProcessorUpgrade(processorToUse);
                 }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.N))
             {
-                NakovBook bookToUse = player.Inventory.FirstOrDefault(b => b is NakovBook) as NakovBook;
+                NakovBook bookToUse = this.player.Inventory.FirstOrDefault(b => b is NakovBook) as NakovBook;
 
                 if (bookToUse != null)
                 {
-                    player.NakovBook(bookToUse);
+                    this.player.NakovBook(bookToUse);
                 }
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.M))
             {
-                Resharper resharperToUse = player.Inventory.FirstOrDefault(r => r is Resharper) as Resharper;
+                Resharper resharperToUse = this.player.Inventory.FirstOrDefault(r => r is Resharper) as Resharper;
                 if (resharperToUse != null)
                 {
-                    player.Resharper(resharperToUse);
+                    this.player.Resharper(resharperToUse);
                 }
             }
         }
@@ -426,7 +426,7 @@ namespace AlliedTionOOP.Engine
         {
             if (Keyboard.GetState().IsKeyDown(Keys.R))
             {
-                isKeyDownAttack = true;
+                this.isKeyDownAttack = true;
             }
 
             if (Keyboard.GetState().IsKeyUp(Keys.R) && isKeyDownAttack)
@@ -434,13 +434,13 @@ namespace AlliedTionOOP.Engine
                 if (closestCreature != null &&
                     DistanceCalculator.GetDistanceBetweenObjects(player, closestCreature, mapPosition) < 80)
                 {
-                    closestCreature.Attack(player);
-                    player.Attack(closestCreature);
+                    this.closestCreature.Attack(this.player);
+                    this.player.Attack(this.closestCreature);
 
-                    CheckIfCreatureIsAlive(closestCreature);
+                    this.CheckIfCreatureIsAlive(this.closestCreature);
                 }
 
-                isKeyDownAttack = false;
+                this.isKeyDownAttack = false;
             }
         }
 
@@ -451,7 +451,7 @@ namespace AlliedTionOOP.Engine
                 new Thread(() => killEnemy.Play()).Start();
 
                 int hashcodeOfKilledCreature = creature.GetHashCode();
-                map.RemoveMapCreatureByHashCode(hashcodeOfKilledCreature);
+                this.map.RemoveMapCreatureByHashCode(hashcodeOfKilledCreature);
             }
         }
 
@@ -470,7 +470,7 @@ namespace AlliedTionOOP.Engine
                     currentClickedButton.ButtonTopLeftX--;
                     break;
                 case "quit":
-                    this.Exit();
+                    base.Exit();
                     break;
             }
         }
